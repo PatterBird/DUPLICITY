@@ -2,7 +2,11 @@
 
 # BYU PROVO CCDC ETW CONSUMER [BETA]
 
-<img style="float: right; margin-left: 10px; margin-top: 40px; height:450px" src="./img/duplicity.png">
+<div style="text-align: center;">
+    <img width="50%" src="./img/duplicity.png">
+</div>
+
+---
 
 **CODENAME:** DUPLICITY
 
@@ -20,8 +24,6 @@ Freedom's greetings! This project is a part of BYU Provo's CCDC Windows OS threa
 | Windows 11 Pro | Y/N/? | ? |
 | Windows 10 Home | Y/N/? | ? |
 | Windows 11 Home | Y | ? |
-
-<br style="clear: both;">
 
 **Issues Affecting All Versions:** There is a race condition regarding the shutdown logic for ETW's session threads. If the race condition is hit the program will not terminate the ETW session and DUPLICITY will continue to log events. The exploit window for this has been reduced from ~6 seconds to microseconds. While it is not fully patched, the condition is unlikely to occur, so a full fix has been backlogged for the time.
 
@@ -48,8 +50,7 @@ DUPLICITY is specialized for the CCDC Windows environment as a part of a defense
 
 ---
 ---
-
-<img style="float: left; margin-right: 30px; margin-top: 2px; height:350px" src="./img/weCookin.png">
+![College frfr](./img/weCookin.png)
 
 ### Collegiate Cyber Defense Competition Info
 
@@ -72,35 +73,34 @@ To comply with NCCDC, DUPLICITY adheres the following rules:
 #### Keeping the Program Effective, Alive & Active
 
 - Low resource load on the OS while running
-- Built using C++ for speed buffs
-- Uses persistence mechanisms to ensure program uptime
-- Uses a mutex to ensure a single instance of DUPLICITY runs across the entire machine (eliminates issues when multiple instances of DUPLICITY try to run)
-- Thwarts basic termination attempts
+- Built using C++ for speed
+- ToDo: Uses persistence mechanisms to ensure program uptime
+- Ensures a single instance of DUPLICITY runs across the entire machine (eliminates issues when multiple instances of DUPLICITY try to run)
+- In Progress: Thwarts basic termination attempts
 - Hope that RT is nice and wont touch this
 - Hope that RT wont look at the source code and build their malware to use stuff we aren't logging
 
 #### Logging Activity with ETW Providers
 
 - Uses the Microsoft-Windows-Kernel-Process provider to watch process creation & termination events as well as image loads.
-- Uses the Microsoft-Windows-Kernel-XXX to monitor stack traces
-- Uses the Microsoft-Windows-Kernel-XXX to watch network traffic
-- Uses the Microsoft-Windows-Kernel-XXX to monitor drivers loaded & XXX
-- Uses the Microsoft-Windows-Kernel-XXX to monitor file access
-- Uses the Microsoft-Windows-Kernel-XXX to ???
+- ToDo: Uses the Microsoft-Windows-Kernel-XXX to monitor stack traces
+- ToDo: Uses the Microsoft-Windows-Kernel-XXX to watch network traffic
+- ToDo: Uses the Microsoft-Windows-Kernel-XXX to monitor drivers loaded & XXX
+- ToDo: Uses the Microsoft-Windows-Kernel-XXX to monitor file access
+- ToDo: Uses the Microsoft-Windows-Kernel-XXX to ???
 
 #### Extended Detection Features
 
 - Todo: Parses Event Viewer logs for XXX.
-- Todo: Audits users & groups (both local and domain)
-- Todo: Scans the registry for common persistence locations and misconfigurations.
+- In Progress: Audits users & groups (both local and domain)
+- In Progress: Scans the registry for common persistence locations and misconfigurations.
 - Todo: Parses task scheduler for potentially problematic tasks.
 
 #### User Interface & Logging
 
-- ToDo: WinBox alerts for high priority finds.
+- In Progress: WinBox alerts for high priority finds.
 - ToDo: Create a structure output file that can be easily parsed to see trends. (Also send info to Splunk/Event Viewer?)
-- WIP: Mutexes write access to the terminal output. This ensures only one event is written to the terminal at a time.
-- ToDo: 
+- ToDo: ?
 
 **ToDo:**
 - Test to make sure this program actually works before comp. 
