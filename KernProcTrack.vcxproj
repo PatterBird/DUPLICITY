@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{70beddc0-06fb-4fcb-9f73-be9ca3e7eb6a}</ProjectGuid>
+    <RootNamespace>KernProcTrack</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Duplicity</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>false</EnableASAN>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>false</EnableASAN>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="src\antiAttackerAttempts\antiRTthoughts.h" />
+    <ClInclude Include="src\extended\extended.h" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\client.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\collection_view.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\compiler_check.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\errors.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\etw.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\filtering\comparers.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\filtering\event_filter.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\filtering\predicates.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\filtering\view_adapters.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\guid.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\kernel_guids.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\kernel_providers.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\kt.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\parser.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\parse_types.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\perfinfo_groupmask.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\property.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\provider.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\schema.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\schema_locator.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\size_provider.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\tdh_helpers.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\event_filter_proxy.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\extended_data_builder.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\filler.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\proxy.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\record_builder.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\record_property_thunk.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\synth_record.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\trace.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\trace_context.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\ut.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\version_helpers.hpp" />
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\wstring_convert.hpp" />
+    <ClInclude Include="src\providers\processStartTerminations\ProcStartLog.h" />
+    <ClInclude Include="src\reporting\sharedHeaders\detRes.h" />
+    <ClInclude Include="src\reporting\queue.h" />
+    <ClInclude Include="src\reporting\sharedHeaders\safeWrite.h" />
+    <ClInclude Include="src\reporting\sharedHeaders\shutdown.h" />
+    <ClInclude Include="src\reporting\winbox.h" />
+    <ClInclude Include="src\Session.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\antiAttackerAttempts\antiRTthoughts.cpp" />
+    <ClCompile Include="src\extended\commonStartup.cpp" />
+    <ClCompile Include="src\extended\eventViewer.cpp" />
+    <ClCompile Include="src\extended\osCheck.cpp" />
+    <ClCompile Include="src\extended\registry.cpp" />
+    <ClCompile Include="src\extended\taskSch.cpp" />
+    <ClCompile Include="src\extended\userAudit.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\providers\processStartTerminations\ProcStartLog.cpp" />
+    <ClCompile Include="src\providers\process\iamsodone.cpp" />
+    <ClCompile Include="src\providers\registryFeatures\RegChecks.cpp" />
+    <ClCompile Include="src\reporting\eventLogger.cpp" />
+    <ClCompile Include="src\reporting\queue.cpp" />
+    <ClCompile Include="src\reporting\winbox.cpp" />
+    <ClCompile Include="src\Session.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Duplicity.aps" />
+    <None Include="LICENSE.md">
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="README.md" />
+    <None Include="THIRD-PARTY-NOTICES.md">
+      <SubType>
+      </SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="img\bird.ico" />
+    <Image Include="img\bird.png" />
+    <Image Include="img\duplicity.png" />
+    <Image Include="img\ETWlayout.png" />
+    <Image Include="img\exampleAlert.png" />
+    <Image Include="img\exampleDetect.png" />
+    <Image Include="img\flagsexample.png" />
+    <Image Include="img\ISOc20.png" />
+    <Image Include="img\logoshown.png" />
+    <Image Include="img\MWKernelProcessOverview.png" />
+    <Image Include="img\OScompatability.png" />
+    <Image Include="img\ProcCreateOutput.png" />
+    <Image Include="img\ProcessStartArguments.png" />
+    <Image Include="img\selectiveAlertDefender.png" />
+    <Image Include="img\shudownSeq.png" />
+    <Image Include="img\staticcompile.png" />
+    <Image Include="img\weCookin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Duplicity.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

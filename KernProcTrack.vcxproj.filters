@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\filtering\comparers.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\filtering\event_filter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\filtering\predicates.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\filtering\view_adapters.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\event_filter_proxy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\extended_data_builder.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\filler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\proxy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\record_builder.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\record_property_thunk.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\testing\synth_record.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\client.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\collection_view.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\compiler_check.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\errors.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\etw.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\guid.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\kernel_guids.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\kernel_providers.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\kt.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\parse_types.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\parser.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\perfinfo_groupmask.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\property.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\provider.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\schema.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\schema_locator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\size_provider.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\tdh_helpers.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\trace.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\trace_context.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\ut.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\version_helpers.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\wstring_convert.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\providers\processStartTerminations\ProcStartLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Session.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reporting\winbox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\extended\extended.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\antiAttackerAttempts\antiRTthoughts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reporting\sharedHeaders\detRes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reporting\sharedHeaders\safeWrite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reporting\queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reporting\sharedHeaders\shutdown.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\providers\processStartTerminations\ProcStartLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\providers\registryFeatures\RegChecks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Session.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\reporting\winbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\reporting\eventLogger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\providers\process\iamsodone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extended\registry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extended\eventViewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extended\taskSch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extended\userAudit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\antiAttackerAttempts\antiRTthoughts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extended\commonStartup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\reporting\queue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extended\osCheck.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include="Duplicity.aps" />
+    <None Include="LICENSE.md" />
+    <None Include="THIRD-PARTY-NOTICES.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="img\duplicity.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\MWKernelProcessOverview.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\ProcCreateOutput.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\ProcessStartArguments.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\bird.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\bird.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\ISOc20.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\logoshown.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\ETWlayout.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\exampleAlert.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\exampleDetect.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\flagsexample.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\OScompatability.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\staticcompile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\weCookin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\selectiveAlertDefender.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\shudownSeq.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Duplicity.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
