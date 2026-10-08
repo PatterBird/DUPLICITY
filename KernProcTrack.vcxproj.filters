@@ -188,9 +188,6 @@
     <ClCompile Include="src\antiAttackerAttempts\antiRTthoughts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\extended\commonStartup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\reporting\queue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

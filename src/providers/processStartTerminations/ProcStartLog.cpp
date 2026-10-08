@@ -63,7 +63,7 @@ void ProcessMicrosoftKernelProcessEvent(const EVENT_RECORD& record, const trace_
             std::wcout << L"\t[-] Create Time: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << std::endl;
         }
         if (FileTimeToSystemTime(&termexitTime, &utcst) && SystemTimeToTzSpecificLocalTime(nullptr, &utcst, &st)) {
-            std::wcout << L"\t[-] Create Time: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << std::endl;
+            std::wcout << L"\t[-] Termination Time: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << std::endl;
         }
         std::cout << "\t[-] Image Name: " << termimageName << std::endl;
         std::cout << "\n" << std::endl;

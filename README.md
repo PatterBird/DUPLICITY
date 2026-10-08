@@ -14,7 +14,7 @@ Freedom's greetings! This project is a part of BYU Provo's CCDC Windows OS threa
 
 **-- Supported & Tested Windows Versions --**
 
-| Windows OS | Supported | Known Issues |
+| Windows OS | Supported | Known OS Specific Issues |
 |---|---|---|
 | Windows Server 2016 | Y/N/? | ? |
 | Windows Server 2019 | Y/N/? | ? |
@@ -31,7 +31,7 @@ The timestamps for ETW are off by a few hours and some formats are not converted
 
 ## What this Project Does
 
-*Keep in mind that this program does pull from usermode sources, as well as operate in that space.*
+*This is a post initial hardening tool and should be ran after initial hardening has been completed.*
 
 *Allow the program to take 5-7 seconds to startup before it starts showing info from the ETW sources. Other features may start sooner if enabled. A [Debug] message should appear signaling that the consumer is ready and running once initilalized.*
 
@@ -61,12 +61,8 @@ To comply with NCCDC, DUPLICITY adheres the following rules:
 - BYU's CCDC team consents to the distribution of DUPLICITY to other teams for competition events.
 - DUPLICITY does not use cloud services of any kind. All functionality is ran locally on the machine. (Future updates of DUPLICITY will forwards logs to Splunk / whatever SIEM is provided, but this is still within competition rules.)
 - DUPLICITY does not attempt to game or break the competition environment.
-
-<br style="clear: both;">
-
 ---
 ---
-
 
 ### Feature Breakdown
 
@@ -285,7 +281,7 @@ An example output using the Kernel-Process ProcessStart event is as shown below.
 
 ## Understanding WinAPIs
 
-***NOTE:*** *The <windows.h> header is needed to use WInAPIs*
+***NOTE:*** *The <windows.h> header is needed to use WinAPIs*
 
 Windows APIs. They are fun, super fast, and provide greater access to the OS as a programmer.
 

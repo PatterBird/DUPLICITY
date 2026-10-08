@@ -186,7 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\antiAttackerAttempts\antiRTthoughts.cpp" />
-    <ClCompile Include="src\extended\commonStartup.cpp" />
     <ClCompile Include="src\extended\eventViewer.cpp" />
     <ClCompile Include="src\extended\osCheck.cpp" />
     <ClCompile Include="src\extended\registry.cpp" />
