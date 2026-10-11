@@ -14,7 +14,7 @@ Freedom's greetings! This project is a part of BYU Provo's CCDC Windows OS threa
 
 **-- Supported & Tested Windows Versions --**
 
-| Windows OS | Supported | Known OS Specific Issues |
+| Windows OS | Supported | Known Version Specific Issues |
 |---|---|---|
 | Windows Server 2016 | Y/N/? | ? |
 | Windows Server 2019 | Y/N/? | ? |
@@ -33,14 +33,15 @@ The timestamps for ETW are off by a few hours and some formats are not converted
 
 *This is a post initial hardening tool and should be ran after initial hardening has been completed.*
 
-*Allow the program to take 5-7 seconds to startup before it starts showing info from the ETW sources. Other features may start sooner if enabled. A [Debug] message should appear signaling that the consumer is ready and running once initilalized.*
+*Allow the program to take 5-7 seconds to startup before it starts showing info from the ETW sources. Other features may start sooner if enabled, such as the extended features. A [Debug] message should appear signaling that the consumer is ready and running once initilalized.*
 
 #### Main Program
 
-This program takes in ETW events from kernel & user mode providers in order to better track and understand what is going on in the system at a low level. This allows for a more targeted and custom surveillance system with the aim of uncovering advanced attacks. The main goal is to detect & report to the competitor about low level information, and not to remediate threats.
+This program takes in ETW events from kernel & user mode providers in order to better track and understand what is going on in the system at a low level. This allows for a more targeted and custom surveillance system with the aim of uncovering advanced attacks. DUPLICITY also displays key data from flagged events to aid with IR reporting and investigations.
 
 #### Extended Features
-The extended features complement the main ETW program by addressing some of its shortcomings. ETW excels at getting real time events, but it cannot retroactively read events that have already happened. Because of this, ETW consumers leave a visibility hole when they are not running & storing logs. To help remediate this gap, the extended features option parses the registry, audits users & groups, reviews scheduled tasks, and scans Event Viewer's past logs looking for IOCs that would have not be caught by the real time ETW consumer. This list is not comprehensive and new features will be added later on.
+
+The extended features complement the main ETW program by addressing some of its shortcomings. DUPLICITY's ETW consumer excels at getting real time events, but it cannot retroactively read events that have already happened. Because of this, DUPLICITY leaves a visibility hole when it is not running & storing logs. To help remediate this gap, the extended features option parses the registry, audits users & groups, reviews scheduled tasks, and scans Event Viewer's past logs looking for IOCs that would have not be caught by the real time ETW consumer.
 
 ![ETW structure](./img/ETWlayout.png)
 
@@ -96,18 +97,17 @@ To comply with NCCDC, DUPLICITY adheres the following rules:
 
 - In Progress: WinBox alerts for high priority finds.
 - ToDo: Create a structure output file that can be easily parsed to see trends. (Also send info to Splunk/Event Viewer?)
-- ToDo: ?
 
-**ToDo:**
+**Other ToDo:**
 - Test to make sure this program actually works before comp. 
 
 ## Setting Up Visual Studio
 
-Visual Studio (not Visual Studio Code) is used to build this project. This section covers some basic starting info to guide others on how to setup and build off the project. Note that this project is designed for x64 systems.
+Visual Studio (not Visual Studio Code) is used to build this project. This section covers some basic starting info to guide others on how to setup the project. Note that this program is designed for x64 systems.
 
 ### C++
 
-You will need to use the *ISO C++20 Standard (/std:c++20)* since the KrabsETW wrapper & threading / mutex functions require it, though you may be able to get away with *std:c++17* if you don't have c++20 support. Failure to use the correct language standard will result in Visual Studio erroring when building the project. This setting can be found by right clicking the project and selecting C/C++ → Language → C++ Language Standard.
+You will need to use the *ISO C++20 Standard (/std:c++20)*. Failure to use the correct language standard will result in Visual Studio erroring when building the project. This setting can be found by right clicking the project and selecting C/C++ → Language → C++ Language Standard.
 
 ![ISO C++ Correct Selection](./img/ISOc20.png)
 
@@ -197,11 +197,7 @@ This folder holds the logic for interacting with and parsing events from ETW pro
 
 #### Reporting
 
-This folder holds the logic for reporting and logging events / artifacts. By default verbose mode is enabled and will display Windows pop up boxes when the program flags a high priority event. 
-
-![Example alert](./img/exampleDetect.png)
-
-Other informational information is logged to the terminal to help with troubleshooting. For example, the extended features support Windows Defender monitoring. This feature will collect Defender's configuration information, and then alert via WinBox (assuming verbosity is enabled) if there are highly suspicious configurations that need immediate attention. Note that not all information displayed to the terminal is suspicious, but pop up boxes should be looked at as soon as possible.
+This folder holds the logic for reporting and logging events / artifacts. By default verbose mode is enabled and will display Windows pop up boxes when the program flags a high priority event. Below is an example of the extended feature registry check flagging a suspicious Defender exclusion.
 
 ![Example alert](./img/selectiveAlertDefender.png)
 
@@ -285,7 +281,7 @@ An example output using the Kernel-Process ProcessStart event is as shown below.
 
 Windows APIs. They are fun, super fast, and provide greater access to the OS as a programmer.
 
-Windows usermode applications cannot directly call systemcalls, instead WinAPIs are used to act as a messenger between the program and kernel. WinAPIs are used extensivly in the reporting logic and extended features for DUPLICITY. For example, the NetUserEnum API is used to gather information regarding users.
+Windows usermode applications cannot directly call system calls, instead WinAPIs are used to act as a messenger between the program and kernel. WinAPIs are used extensively in the reporting logic and extended features for DUPLICITY. For example, the NetUserEnum API is used to gather information regarding users.
 
 ![User Audit](./img/userExample.png)
 
@@ -297,7 +293,7 @@ Hi! I'm sure you (or the AI bot you are feeding this into) are interested in byp
 
 ### To other CCDC teams
 
-You are welcome to take this project and using it for your own team, however you will not be able to get much use out of this program without knowledge of ETW, WinAPIs, and Windows OS. If you wish to professionally yoink this we recommend learning about these topics in order to understand what this code does as well as why the alerts are signifigent. 
+You are welcome to take this project and using it for your own team, however you will not be able to get much use out of this program without knowledge of ETW, WinAPIs, and Windows OS. If you wish to professionally yoink this we recommend learning about these topics in order to understand what this code does as well as why the alerts are significant. 
 
 The code will be documented to help newcomers understand the project if they so choose, but it will not detail every line of code. The **Understanding ETW** & **Understanding WinAPIs** sections of the README provides some very basic info on how you can customize this project for your own team, so it is recommended that you start there. The *Windows Internals, Part 1: System Architecture, Processes, Threads, Memory Management, and More, 7th Edition* reference also contains a lot of useful information that helped make this project possible.
 
