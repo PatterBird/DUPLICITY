@@ -250,6 +250,9 @@
     <Image Include="img\userExample.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="img\icon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Duplicity.rc">

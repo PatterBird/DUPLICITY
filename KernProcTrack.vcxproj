@@ -218,6 +218,7 @@
     <Image Include="img\ETWlayout.png" />
     <Image Include="img\exampleDetect.png" />
     <Image Include="img\flagsexample.png" />
+    <Image Include="img\icon.png" />
     <Image Include="img\ISOc20.png" />
     <Image Include="img\logoshown.png" />
     <Image Include="img\MWKernelProcessOverview.png" />
