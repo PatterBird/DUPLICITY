@@ -52,13 +52,16 @@ int main(int argc, char *argv[]){
 
         if (flag == "-e" || flag == "--extended") {
             mode = 1;
+        }else if (flag == "-eo" || flag == "--extended-only") {
+            mode = 2;
         }else if (flag == "-h" || flag == "--help") {
             std::cout << "[?] Usage: duplicity.exe [options]" << std::endl;
             std::cout << "  [+] Options:" << std::endl;
-            std::cout << "  -e, --extended \tEnables extended monitoring outside of ETW." << std::endl;
-            std::cout << "  -f, --file \t\tSpecify the file to log the results to." << std::endl;  // ToDo: Implement
+            std::cout << "  -e, --extended \tEnables extended monitoring along with ETW." << std::endl;
+            std::cout << "  -eo, --extended-only \tOnly runs the extended monitoring feature." << std::endl;
+            std::cout << "  -f, --file \t\tSpecify the file to log the results to. (Not implemented)" << std::endl;  // ToDo: Implement
             std::cout << "  -h, --help \t\tDisplays the help page." << std::endl;
-            std::cout << "  -nv, --no-verbose \tDisables verbose alerts. Verbosity is enabled by default." << std::endl;  // ToDo: Implement
+            std::cout << "  -nv, --no-verbose \tDisables verbose alerts. Verbosity is enabled by default. (Not implemented)" << std::endl;  // ToDo: Implement
             std::cout << "\n" << std::endl;
             return 0;
         }else if (flag == "-nv" || flag == "--no-verbose") {
@@ -84,11 +87,13 @@ int main(int argc, char *argv[]){
     //goAwayRT();
 
     // Start the ETW session with threading
-    etwThread = std::thread(StartEtwSession);
+    if (mode != 2) {
+        etwThread = std::thread(StartEtwSession);
+    }
     alertThread = std::thread(alertWorker);
 
     // Start extended features with threading
-    if (mode == 1){
+    if (mode == 1 || mode == 2){
         extThread = std::thread(extendedScan);
     }
 
@@ -127,8 +132,6 @@ void extendedScan() {
         std::cout << "\n[?] Task Scheduler Check\n" << std::endl;
         // ??
         std::cout << "\n[?] Event Viewer\n" << std::endl;
-        // ??
-        std::cout << "\n[?] Open Ports\n" << std::endl;
         // ??
         std::cout << "\nCHECKS COMPLETED - Review results and resolve potentialy problamatic entries if found\n" << std::endl;
         // Save results to file

@@ -173,9 +173,6 @@
     <ClCompile Include="src\providers\process\iamsodone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\extended\registry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\extended\eventViewer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -192,6 +189,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\extended\osCheck.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extended\regsitry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -214,9 +214,6 @@
     <Image Include="img\ProcessStartArguments.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="img\bird.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="img\bird.ico">
       <Filter>Resource Files</Filter>
     </Image>
@@ -227,9 +224,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="img\ETWlayout.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="img\exampleAlert.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="img\exampleDetect.png">
@@ -251,6 +245,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="img\shudownSeq.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\userExample.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

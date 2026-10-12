@@ -33,7 +33,7 @@ void localUsers() {
                 printUserGroups(pTemp->usri3_name);
                 std::wcout << L"\t[-] ID: " << pTemp->usri3_user_id << std::endl;
                 
-                if (formatSec >= 86400) { std::wcout << L"\t[-] Password Age: " << ((formatSec / 60) / 60) /24 << L" days(s)\n"; }
+                if (formatSec >= 86400) { std::wcout << L"\t[-] Password Age: " << ((formatSec / 60) / 60) /24 << L" day(s)\n"; }
                 else if ((formatSec >= 3600) && (formatSec < 86400)) { std::wcout << L"\t[-] Password Age: " << (formatSec / 60) /60 << L" hour(s)\n"; }
                 else if ((formatSec >= 60) && formatSec < 3600){std::wcout << L"\t[-] Password Age: " << formatSec / 60 << L" min\n";}
                 else {std::wcout << L"\t[-] Password Age: " << formatSec << L" sec\n";}
@@ -140,7 +140,7 @@ void domainUsers() {
                     std::wcout << L"\n[+] Domain User: " << pTemp->usri3_name << std::endl;
                     std::wcout << L"\t[-] ID: " << pTemp->usri3_user_id << std::endl;
 
-                    if (formatSec >= 86400) { std::wcout << L"\t[-] Password Age: " << ((formatSec / 60) / 60) / 24 << L" days(s)\n"; }
+                    if (formatSec >= 86400) { std::wcout << L"\t[-] Password Age: " << ((formatSec / 60) / 60) / 24 << L" day(s)\n"; }
                     else if ((formatSec >= 3600) && (formatSec < 86400)) { std::wcout << L"\t[-] Password Age: " << (formatSec / 60) / 60 << L" hour(s)\n"; }
                     else if ((formatSec >= 60) && formatSec < 3600) { std::wcout << L"\t[-] Password Age: " << formatSec / 60 << L" min\n"; }
                     else { std::wcout << L"\t[-] Password Age: " << formatSec << L" sec\n"; }

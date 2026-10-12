@@ -188,7 +188,7 @@
     <ClCompile Include="src\antiAttackerAttempts\antiRTthoughts.cpp" />
     <ClCompile Include="src\extended\eventViewer.cpp" />
     <ClCompile Include="src\extended\osCheck.cpp" />
-    <ClCompile Include="src\extended\registry.cpp" />
+    <ClCompile Include="src\extended\regsitry.cpp" />
     <ClCompile Include="src\extended\taskSch.cpp" />
     <ClCompile Include="src\extended\userAudit.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -214,10 +214,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\bird.ico" />
-    <Image Include="img\bird.png" />
     <Image Include="img\duplicity.png" />
     <Image Include="img\ETWlayout.png" />
-    <Image Include="img\exampleAlert.png" />
     <Image Include="img\exampleDetect.png" />
     <Image Include="img\flagsexample.png" />
     <Image Include="img\ISOc20.png" />
@@ -229,6 +227,7 @@
     <Image Include="img\selectiveAlertDefender.png" />
     <Image Include="img\shudownSeq.png" />
     <Image Include="img\staticcompile.png" />
+    <Image Include="img\userExample.png" />
     <Image Include="img\weCookin.png" />
   </ItemGroup>
   <ItemGroup>
