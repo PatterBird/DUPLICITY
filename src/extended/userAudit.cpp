@@ -10,6 +10,7 @@
 #pragma comment(lib, "netapi32.lib")
 
 void printUserGroups(const wchar_t* usrname);
+void printUserGroupsDomain(const wchar_t* usrname, LPWSTR dcName);
 
 void localUsers() {
     NET_API_STATUS localStat;
@@ -138,6 +139,7 @@ void domainUsers() {
                     DWORD formatSec = pTemp->usri3_password_age;
 
                     std::wcout << L"\n[+] Domain User: " << pTemp->usri3_name << std::endl;
+                    printUserGroupsDomain(pTemp->usri3_name, dcName);
                     std::wcout << L"\t[-] ID: " << pTemp->usri3_user_id << std::endl;
 
                     if (formatSec >= 86400) { std::wcout << L"\t[-] Password Age: " << ((formatSec / 60) / 60) / 24 << L" day(s)\n"; }
@@ -176,6 +178,27 @@ void domainUsers() {
         }
         if (domainName) { NetApiBufferFree(domainName); }
         if (dcBuffer) { NetApiBufferFree(dcBuffer); }
+    }
+}
+
+void printUserGroupsDomain(const wchar_t* usrname, LPWSTR dcName) {
+    LPGROUP_USERS_INFO_0 groupBuffer = nullptr;
+    DWORD entriesRead = 0;
+    DWORD totalEntries = 0;
+
+    NET_API_STATUS status = NetUserGetGroups(dcName, usrname, 0, (LPBYTE*)&groupBuffer, MAX_PREFERRED_LENGTH, &entriesRead, &totalEntries);
+
+    if (status == NERR_Success || status == ERROR_MORE_DATA){
+        for (DWORD i = 0; i < entriesRead; i++) {
+            std::wcout << L"\t[-] Group(s): " << groupBuffer[i].grui0_name << std::endl;
+        }
+    }
+    else {
+        std::wcout << L"\t[?] Group(s): N/A" << std::endl;
+    }
+
+    if (groupBuffer != nullptr) {
+        NetApiBufferFree(groupBuffer);
     }
 }
 
