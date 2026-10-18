@@ -5,6 +5,8 @@
 #include <iostream>
 
 using namespace krabs;  // Wrapper for handling ETW
+BOOL checkDLL(const std::wstring& dllName);
+std::wstring convertDllPath(const std::wstring& path);
 
 // NOTE: depending on the data type you may need to use std::cout or std:wcout for handling data!
 
@@ -68,26 +70,24 @@ void ProcessMicrosoftKernelProcessEvent(const EVENT_RECORD& record, const trace_
         std::cout << "\t[-] Image Name: " << termimageName << std::endl;
         std::cout << "\n" << std::endl;
     } else if (schema.event_id() == 5 ) {
-        std::lock_guard<std::mutex> lock(cmdMutex);
 
         auto imgimageName = parser.parse<std::wstring>(L"ImageName");
         auto imgprocessId = parser.parse<uint32_t>(L"ProcessID");
         auto imgcheckSum = parser.parse<uint32_t>(L"ImageCheckSum");
-        auto imgtimedateStamp = parser.parse<uint32_t>(L"TimeDateStamp");   // gonna need to fix at some point
 
-        // Ignore loaded images from "safe" directories to reduce noise. WIll need to be updated for more robust detection.
-        if (imgimageName.find(L"\\Windows\\UUS\\") != std::wstring::npos || imgimageName.find(L"\\Windows\\System32\\") != std::wstring::npos || imgimageName.find(L"\\Windows\\SysWOW64\\") != std::wstring::npos || imgimageName.find(L"\\Windows\\WinSxS\\") != std::wstring::npos || imgimageName.find(L"\\Program Files\\WindowsApps\\") != std::wstring::npos || imgimageName.find(L"\\Windows\\SysWOW64\\") != std::wstring::npos || imgimageName.find(L"\\Windows\\WinSxS\\") != std::wstring::npos || imgimageName.find(L"\\Program Files\\Google\\Chrome") != std::wstring::npos) {
+        std::wstring dllPath = convertDllPath(imgimageName);
+
+        // Ignore loaded images from "safe" directories to reduce noise. Will need to be updated for more robust detection.
+        if (!checkDLL(dllPath)) {
             return;
         }
 
-        //alertXYZ();
+        std::lock_guard<std::mutex> lock(cmdMutex);
         std::wcout << L"[!] ETW EVENT: " << (wchar_t*)schema.task_name() << std::endl;
-
         std::cout << "[+] Image Loaded" << std::endl;
-        std::wcout << "\t[-] Image Name: " << imgimageName << std::endl;
+        std::wcout << "\t[-] Image Name: " << dllPath << std::endl;
         std::cout << "\t[-] PID: " << imgprocessId << std::endl;
         std::cout << "\t[-] Checksum: " << imgcheckSum << std::endl;
-        std::cout << "\t[-] PE image timestamp: " << imgtimedateStamp << std::endl;
         std::cout << "\n" << std::endl;
     }
 }
@@ -101,4 +101,45 @@ void MonitorProcessCreate(krabs::user_trace& trace, krabs::provider<>& provider)
         });
 
     trace.enable(provider);
+}
+
+BOOL checkDLL(const std::wstring& dllName) {
+    wchar_t windowsDir[MAX_PATH]{};
+    wchar_t programFiles[MAX_PATH]{};
+
+    if (!GetWindowsDirectoryW(windowsDir, MAX_PATH)) return TRUE;
+    if (!ExpandEnvironmentStringsW(L"%ProgramFiles%", programFiles, MAX_PATH)) return TRUE;
+
+    const std::vector<std::wstring> dllList = {
+        std::wstring(windowsDir) + L"\\UUS\\",
+        std::wstring(windowsDir) + L"\\System32\\",
+        std::wstring(windowsDir) + L"\\SysWOW64\\",
+        std::wstring(windowsDir) + L"\\WinSxS\\",
+        std::wstring(windowsDir) + L"\\WinSxS\\",
+        std::wstring(programFiles) + L"\\WindowsApps\\",
+        std::wstring(programFiles) + L"\\Google\\Chrome"
+    };
+
+    for (const auto& entry : dllList) {
+        if (_wcsnicmp(dllName.c_str(), entry.c_str(), entry.size()) == 0) {
+            return FALSE;
+        }
+    }
+    return TRUE;
+}
+
+std::wstring convertDllPath(const std::wstring& path) {
+    wchar_t devicePath[1024]{};
+
+    for (wchar_t drive = L'A'; drive <= L'Z'; drive++) {
+        std::wstring driveName = std::wstring(1, drive) + L":";
+
+        if (QueryDosDeviceW(driveName.c_str(), devicePath, 1024)) {
+            size_t length = wcslen(devicePath);
+
+            if (path.size() >= length && _wcsnicmp(path.c_str(), devicePath, length) == 0 && (path.size() == length || path[length] == L'\\')) {
+                return driveName + path.substr(length);
+            }
+        }
+    } return path;
 }

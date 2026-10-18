@@ -29,8 +29,6 @@ Main Developer:<br>★ Rebekah C (Patter_Bird)
 
 **Issues Affecting All Versions:** There is a race condition regarding the shutdown logic for ETW's session threads. If the race condition is hit the program will not terminate the ETW session and DUPLICITY will continue to log events. The exploit window for this has been reduced from ~6 seconds to microseconds. While it is not fully patched, the condition is unlikely to occur, so a full fix has been backlogged for the time.
 
-The timestamps for ETW are off by a few hours and some formats are not converted to a human readable format.
-
 ## What this Project Does
 
 *This is a post initial hardening tool and should be ran after initial hardening has been completed.*
