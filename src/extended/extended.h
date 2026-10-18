@@ -13,3 +13,6 @@ void regScan();
 
 // User Audit
 void userAudit();
+
+// MS Defender
+void MSDefend();

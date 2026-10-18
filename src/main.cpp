@@ -4,12 +4,14 @@
 
 #include "./reporting/queue.h"
 #include "./reporting/sharedHeaders/shutdown.h"
+#include "./reporting/sharedHeaders/safeWrite.h"
 #include "./Session.h"
 #include "./extended/extended.h"
 #include "./antiAttackerAttempts/antiRTthoughts.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <mutex>
 #include <windows.h>
 
 void extendedScan();
@@ -34,8 +36,10 @@ int main(int argc, char *argv[]){
 
     SetConsoleCtrlHandler(termKill, TRUE);
     int mode = 0;
+    int defend = 0;
     std::thread etwThread;
     std::thread extThread;
+    std::thread MSThread;
     std::thread alertThread;
 
     // Welcome Info
@@ -50,13 +54,16 @@ int main(int argc, char *argv[]){
 
         std::string flag = argv[i];
 
-        if (flag == "-e" || flag == "--extended") {
+        if (flag == "-d" || flag == "--defender") {
+            defend = 1;
+        }else if (flag == "-e" || flag == "--extended") {
             mode = 1;
         }else if (flag == "-eo" || flag == "--extended-only") {
             mode = 2;
         }else if (flag == "-h" || flag == "--help") {
             std::cout << "[?] Usage: duplicity.exe [options]" << std::endl;
             std::cout << "  [+] Options:" << std::endl;
+            std::cout << "  -d, --defender \tRuns a quick Defender scan periodically." << std::endl;
             std::cout << "  -e, --extended \tEnables extended monitoring along with ETW." << std::endl;
             std::cout << "  -eo, --extended-only \tOnly runs the extended monitoring feature." << std::endl;
             std::cout << "  -f, --file \t\tSpecify the file to log the results to. (Not implemented)" << std::endl;  // ToDo: Implement
@@ -83,6 +90,11 @@ int main(int argc, char *argv[]){
     // OS name
     osCheck();
 
+    // MS Defender
+    if (defend == 1) {
+        MSThread = std::thread(MSDefend);
+    }
+
     // Start antiRT behavior
     //goAwayRT();
 
@@ -98,9 +110,7 @@ int main(int argc, char *argv[]){
     }
 
     while (running){
-        std::this_thread::sleep_for(
-            std::chrono::milliseconds(500)
-        );
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 
     // Handle shutdown signal
@@ -110,6 +120,7 @@ int main(int argc, char *argv[]){
     if (alertThread.joinable()) { alertThread.join(); }
     if (extThread.joinable()) { extThread.join(); }
     if (etwThread.joinable()) { etwThread.join(); }
+    if (MSThread.joinable()) { MSThread.join(); }
     CloseHandle(hMutex);
 
     return 0;
@@ -117,14 +128,16 @@ int main(int argc, char *argv[]){
 
 void extendedScan() {
     while (running) {
-        std::cout << "\n########## BEGINING EXTENDED SYSTEM SCAN [BETA] ########## " << std::endl;
-        std::cout << "\n     This scan will run automatically every 7 min \n" << std::endl;
+        {
+            std::lock_guard<std::mutex> lock(cmdMutex);
+            std::cout << "\n########## BEGINING EXTENDED SYSTEM SCAN [BETA] ########## " << std::endl;
+            std::cout << "\n     This scan will run automatically every 7 min \n" << std::endl;
+            SYSTEMTIME st;
+            GetLocalTime(&st);
+            std::wcout << L"\t#### Scan Time: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << " ####\n" << std::endl;
+        }
 
-        SYSTEMTIME st;
-        GetLocalTime(&st);
-
-        std::wcout << L"\t#### Scan Time: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << " ####\n" << std::endl;
-
+       
         std::cout << "[?] Registry Check\n" << std::endl;
         regScan();
         std::cout << "\n[?] User Audit Check\n" << std::endl;
