@@ -497,7 +497,7 @@ DetectionResult defendKeys(REGSAM bitVer) {
             }
         }
     }
-    return { suspicious, "Defender", suspicious ? "Defender configuration findings or read errors." : "No Defender values flagged.", suspicious ? trigger : L"HKLM\\SOFTWARE\\Microsoft\\Windows Defender", details, viewLabel(bitVer) };
+    return { suspicious, "Defender", suspicious ? "Defender configuration findings or read errors." : "No Defender values flagged.", L"HKLM\\SOFTWARE\\Microsoft\\Windows Defender", details, viewLabel(bitVer) };
 }
 
 // Reports the result of a check and queues flagged checks

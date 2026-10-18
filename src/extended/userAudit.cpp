@@ -30,6 +30,7 @@ void localUsers() {
                 if (pTemp == NULL) {break;}
                 DWORD formatSec = pTemp->usri3_password_age;
 
+
                 std::wcout << L"\n[+] Local User: " << pTemp->usri3_name << std::endl;
                 printUserGroups(pTemp->usri3_name);
                 std::wcout << L"\t[-] ID: " << pTemp->usri3_user_id << std::endl;
@@ -55,6 +56,12 @@ void localUsers() {
                 }
                 if (pTemp->usri3_flags & UF_LOCKOUT) {
                     std::cout << "\t[-] Account is locked" << std::endl;
+                }
+                if (pTemp->usri3_flags & UF_SERVER_TRUST_ACCOUNT){
+                    std::cout << "\t[-] Account is a Domain Controller" << std::endl;
+                }
+                if (pTemp->usri3_flags & UF_WORKSTATION_TRUST_ACCOUNT) {
+                    std::cout << "\t[-] Account is a Domain Computer" << std::endl;
                 }
                 pTemp++;
             }
@@ -100,11 +107,11 @@ void domainUsers() {
 
     domainStatus = NetGetJoinInformation(NULL, &domainName, &connStatus);
     if (domainStatus != NERR_Success) {
-        std::wcout << L"Failed to get DC join information. Error: " << domainStatus << std::endl;
+        std::wcout << L"\nFailed to get DC join information. Error: " << domainStatus << std::endl;
         return;
     }
     if (connStatus != NetSetupDomainName || domainName == NULL) {
-        std::cout << "This machine is not joined to a domain. Domain user audit skipped." << std::endl;
+        std::cout << "\nThis machine is not joined to a domain. Domain user audit skipped." << std::endl;
         if (domainName != NULL){
             NetApiBufferFree(domainName);
         }
@@ -112,7 +119,7 @@ void domainUsers() {
     }
 
     //If the machine is connected, then it will grab the users here
-    std::wcout << L"\t[!] Connected Domain: " << domainName << std::endl;
+    std::wcout << L"\n[!] Connected Domain (NETBIOS): " << domainName << std::endl;
 
     domainStatus = NetGetDCName(NULL, domainName, &dcBuffer);
     if (domainStatus != NERR_Success) {
