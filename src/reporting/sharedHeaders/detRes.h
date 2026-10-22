@@ -13,6 +13,14 @@ struct DetectionResult{
     std::string registryView;
 };
 
+struct TaskSchResult {
+    bool suspicious;
+    std::string name;
+    std::string reason;
+    std::wstring triggerPath;
+    std::vector<std::wstring> details;
+};
+
 inline std::wstring registryTypeName(DWORD type){
     switch (type){
     case REG_SZ:

@@ -143,7 +143,7 @@ void extendedScan() {
         std::cout << "\n[?] User Audit Check\n" << std::endl;
         userAudit();
         std::cout << "\n[?] Task Scheduler Check\n" << std::endl;
-        // ??
+        taskCheck();
         std::cout << "\n[?] Event Viewer\n" << std::endl;
         // ??
         std::cout << "\nCHECKS COMPLETED - Review results and resolve potentialy problamatic entries if found\n" << std::endl;

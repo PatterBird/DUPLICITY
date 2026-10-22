@@ -89,13 +89,13 @@ To comply with NCCDC, DUPLICITY adheres the following rules:
 #### Extended Detection Features
 
 - Todo: Parses Event Viewer logs for XXX.
-- In Progress: Audits users & groups (both local and domain)
+- Audits local & domain users & groups as well as identifies the domain controller (if applicable)
 - In Progress: Scans the registry for common persistence locations and misconfigurations.
-- Todo: Parses task scheduler for potentially problematic tasks.
+- In Progress: Parses task scheduler and displays tasks
 
 #### User Interface & Logging
 
-- In Progress: WinBox alerts for high priority finds.
+- WinBox alerts for high priority finds.
 - ToDo: Create a structure output file that can be easily parsed to see trends. (Also send info to Splunk/Event Viewer?)
 
 **Other ToDo:**

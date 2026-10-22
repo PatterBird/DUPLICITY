@@ -10,6 +10,7 @@ void regScan();
 // Event Viewer Check
 
 // Task Scheduler Check
+void taskCheck();
 
 // User Audit
 void userAudit();
