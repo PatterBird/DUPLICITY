@@ -36,13 +36,13 @@ void taskCheck(){
         return;
     }
 
-    // Initialize security.
+    /*// Initialize security.
     comThing = CoInitializeSecurity(NULL, -1, NULL, NULL, RPC_C_AUTHN_LEVEL_PKT_PRIVACY, RPC_C_IMP_LEVEL_IMPERSONATE, NULL, EOAC_NONE, NULL);
     if (comThing < 0) {
         CoUninitialize();
         std::wcout << "\n[!] TaskSch COM security initilization failed!" << std::endl;
         return;
-    }
+    }*/
 
     // Summon Task Scheduler
     ITaskService* pService = NULL;

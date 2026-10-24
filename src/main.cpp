@@ -37,6 +37,11 @@ int main(int argc, char *argv[]){
     SetConsoleCtrlHandler(termKill, TRUE);
     int mode = 0;
     int defend = 0;
+
+    // COM initialization
+    HRESULT comTime = CoInitializeSecurity(nullptr, -1, nullptr, nullptr, RPC_C_AUTHN_LEVEL_PKT_PRIVACY, RPC_C_IMP_LEVEL_IMPERSONATE, nullptr, EOAC_NONE, nullptr);
+
+    // Threads
     std::thread etwThread;
     std::thread extThread;
     std::thread MSThread;
@@ -44,7 +49,7 @@ int main(int argc, char *argv[]){
 
     // Welcome Info
     std::cout << "#########################################################" << std::endl;
-    std::cout << "############### STARTING DUPLICITY [BETA] ###############" << std::endl;
+    std::cout << "############### STARTING DUPLICITY [ALPHA] ###############" << std::endl;
     std::cout << "#########################################################" << std::endl;
     std::cout << "      To see a list of features, use the -h flag\n" << std::endl;
 
