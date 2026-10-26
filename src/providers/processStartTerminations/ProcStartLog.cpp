@@ -103,6 +103,7 @@ void MonitorProcessCreate(krabs::user_trace& trace, krabs::provider<>& provider)
     trace.enable(provider);
 }
 
+// Need to rework
 BOOL checkDLL(const std::wstring& dllName) {
     wchar_t windowsDir[MAX_PATH]{};
     wchar_t programFiles[MAX_PATH]{};
@@ -117,7 +118,8 @@ BOOL checkDLL(const std::wstring& dllName) {
         std::wstring(windowsDir) + L"\\WinSxS\\",
         std::wstring(windowsDir) + L"\\WinSxS\\",
         std::wstring(programFiles) + L"\\WindowsApps\\",
-        std::wstring(programFiles) + L"\\Google\\Chrome"
+        std::wstring(programFiles) + L"\\Google\\Chrome",
+        std::wstring(programFiles)
     };
 
     for (const auto& entry : dllList) {

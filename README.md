@@ -19,8 +19,8 @@ Main Developer:<br>★ Rebekah C (Patter_Bird)
 | Windows OS | Supported | Known Version Specific Issues |
 |---|---|---|
 | Windows Server 2016 | Y/N/? | ? |
-| Windows Server 2019 | Y/N/? | ? |
-| Windows Server 2022 | Y/N/? | ? |
+| Windows Server 2019 | Y | ? |
+| Windows Server 2022 | Y | ? |
 | Windows Server 2025 | Y/N/? | ? |
 | Windows 10 Pro | Y/N/? | ? |
 | Windows 11 Pro | Y/N/? | ? |
@@ -28,6 +28,8 @@ Main Developer:<br>★ Rebekah C (Patter_Bird)
 | Windows 11 Home | Y | ? |
 
 **Issues Affecting All Versions:** There is a race condition regarding the shutdown logic for ETW's session threads. If the race condition is hit the program will not terminate the ETW session and DUPLICITY will continue to log events. The exploit window for this has been reduced from ~6 seconds to microseconds. While it is not fully patched, the condition is unlikely to occur, so a full fix has been backlogged for the time.
+
+Ironically Microsoft Defender flags this program as a trojan instead of the actual malware on the comp boxes. You may need to allowlist the program prior ot use.
 
 ## What this Project Does
 
@@ -79,7 +81,7 @@ To comply with NCCDC, DUPLICITY adheres the following rules:
 
 #### Logging Activity with ETW Providers
 
-- Uses the Microsoft-Windows-Kernel-Process provider to watch process creation & termination events as well as image loads.
+- In Progress: Uses the Microsoft-Windows-Kernel-Process provider to watch process creation & termination events. Image loads (aka DLLs) are being reworked and are temporaraly removed.
 - ToDo: Uses the Microsoft-Windows-Kernel-XXX to monitor stack traces
 - ToDo: Uses the Microsoft-Windows-Kernel-XXX to watch network traffic
 - ToDo: Uses the Microsoft-Windows-Kernel-XXX to monitor drivers loaded & XXX
@@ -91,15 +93,12 @@ To comply with NCCDC, DUPLICITY adheres the following rules:
 - Todo: Parses Event Viewer logs for XXX.
 - Audits local & domain users & groups as well as identifies the domain controller (if applicable)
 - In Progress: Scans the registry for common persistence locations and misconfigurations.
-- In Progress: Parses task scheduler and displays tasks
+- In Progress: Parses task scheduler and displays possibly suspicious tasks
 
 #### User Interface & Logging
 
 - WinBox alerts for high priority finds.
-- ToDo: Create a structure output file that can be easily parsed to see trends. (Also send info to Splunk/Event Viewer?)
-
-**Other ToDo:**
-- Test to make sure this program actually works before comp. 
+- ToDo: Create a structure output file that can be easily parsed to see trends. (Also send info to Splunk/Event Viewer?) 
 
 ## Setting Up Visual Studio
 
