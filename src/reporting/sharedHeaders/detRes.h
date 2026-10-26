@@ -5,7 +5,7 @@
 #include <windows.h>
 
 struct DetectionResult{
-    bool suspicious;
+    bool suspicious = FALSE;
     std::string name;
     std::string reason;
     std::wstring triggerPath;

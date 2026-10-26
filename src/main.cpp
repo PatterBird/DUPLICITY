@@ -18,6 +18,7 @@ void extendedScan();
 
 // DUPLICITY is verbose by default
 int verbose = 1;
+BOOL users = TRUE;
 
 int main(int argc, char *argv[]){
     HANDLE hMutex = CreateMutexW(NULL, FALSE, L"Global\\FSB_spyware_2026");
@@ -63,14 +64,20 @@ int main(int argc, char *argv[]){
             defend = 1;
         }else if (flag == "-e" || flag == "--extended") {
             mode = 1;
+        }else if (flag == "-e1" || flag == "--extended=1") {
+            mode = 1;
+            users = FALSE;
         }else if (flag == "-eo" || flag == "--extended-only") {
             mode = 2;
+        }else if (flag == "-eo1" || flag == "--extended-only=1") {
+            mode = 2;
+            users = FALSE;
         }else if (flag == "-h" || flag == "--help") {
             std::cout << "[?] Usage: duplicity.exe [options]" << std::endl;
             std::cout << "  [+] Options:" << std::endl;
             std::cout << "  -d, --defender \tRuns a quick Defender scan periodically." << std::endl;
-            std::cout << "  -e, --extended \tEnables extended monitoring along with ETW." << std::endl;
-            std::cout << "  -eo, --extended-only \tOnly runs the extended monitoring feature." << std::endl;
+            std::cout << "  -e, --extended \tEnables extended monitoring along with ETW.\n To run the extended scan without querying users run -e1 or --extended=1" << std::endl;
+            std::cout << "  -eo, --extended-only \tOnly runs the extended monitoring feature. To run the extended scan without querying users run -e01 or --extended-only=1" << std::endl;
             std::cout << "  -f, --file \t\tSpecify the file to log the results to. (Not implemented)" << std::endl;  // ToDo: Implement
             std::cout << "  -h, --help \t\tDisplays the help page." << std::endl;
             std::cout << "  -nv, --no-verbose \tDisables verbose alerts. Verbosity is enabled by default. (Not implemented)" << std::endl;  // ToDo: Implement
@@ -141,12 +148,11 @@ void extendedScan() {
             GetLocalTime(&st);
             std::wcout << L"\t#### Scan Time: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << " ####\n" << std::endl;
         }
-
        
         std::cout << "[?] Registry Check\n" << std::endl;
         regScan();
         std::cout << "\n[?] User Audit Check\n" << std::endl;
-        userAudit();
+        users ? userAudit() : (void)(std::cout << "\n\t[-] User Audit Skipped\n");
         std::cout << "\n[?] Task Scheduler Check\n" << std::endl;
         taskCheck();
         std::cout << "\n[?] Event Viewer\n" << std::endl;

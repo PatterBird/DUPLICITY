@@ -264,7 +264,7 @@ DetectionResult bootPersist(REGSAM bitVer) {
         }
         if (values.empty()) details.push_back(std::wstring(name) + L": <empty>");
         for (const auto& v : values) details.push_back(std::wstring(name) + L": " + v);
-        bool unexpected = isBoot ? (values.size() != 1 || (values.front() != L"autocheck autochk *" || values.front() !=  L"autocheck autochk /q /v *"))
+        bool unexpected = isBoot ? (values.size() != 1 || (values.front() != L"autocheck autochk *" && values.front() !=  L"autocheck autochk /q /v *"))
             : !values.empty();
         if (unexpected) {
             suspicious = true;

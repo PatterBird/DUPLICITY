@@ -4,6 +4,8 @@
 #include <iostream>
 #include "../reporting/sharedHeaders/detRes.h"
 #include "../reporting/sharedHeaders/safeWrite.h"
+#include "../reporting/winbox.h"
+#include "../reporting/queue.h"
 
 #pragma comment(lib, "taskschd.lib")
 
@@ -12,15 +14,14 @@
 
 /*
 SCORE SYSTEM:
-Elevated Priv: +2 //done
+Elevated Priv: +1 //done
 SYSTEM User: +1 // dome
 Hidden: +1  // done
-Recent creation (past 2 days): +2
+Recent creation (past 2 days): +3 // Mostly done. Some timezone issues affect this check
 Calls PS or CMD: +5 // done
 Sus exe directory: +5 // done
-Logon / Startup: +3
-other??? +0
-FLAGGED THREASHOLD: 5 points
+Logon / Startup: +Info // idk 
+FLAGGED THREASHOLD: 6 points
 */
 
 constexpr int SCORE_THRESH = 5;
@@ -36,7 +37,7 @@ void taskCheck(){
         return;
     }
 
-    /*// Initialize security.
+    /*// Initialize security. Moved to main
     comThing = CoInitializeSecurity(NULL, -1, NULL, NULL, RPC_C_AUTHN_LEVEL_PKT_PRIVACY, RPC_C_IMP_LEVEL_IMPERSONATE, NULL, EOAC_NONE, NULL);
     if (comThing < 0) {
         CoUninitialize();
@@ -86,6 +87,7 @@ void taskCheck(){
         for (const auto& detail : result.details) {
             std::wcout << L"\t" << detail << std::endl;
         }
+        if (result.suspicious) { queueAlert(result);}
     }
     std::cout << "\n[!] Number of findings: " << results.size() << std::endl;;
 }
@@ -140,8 +142,8 @@ std::vector<TaskSchResult> enumTasks(ITaskFolder* folder) {
                             details.push_back(std::wstring(L"\t[-]Privileges: ") + (elevated ? L"Highest" : L"Standard"));
 
                             if (elevated) {
-                                score += 2;
-                                details.push_back( L"\t\t[+2] Highest privileges requested");
+                                score += 1;
+                                details.push_back( L"\t\t[+1] Highest privileges requested");
                             }
                         }
 
@@ -165,32 +167,69 @@ std::vector<TaskSchResult> enumTasks(ITaskFolder* folder) {
                             }
                             pTaskSettings->Release();
                         }
-                        /*IRegistrationInfo* regInfo = nullptr;
-                        if (SUCCEEDED(definition->get_RegistrationInfo(&regInfo)) && regInfo) {
-                            BSTR creationDate = nullptr;
+
+                        ITriggerCollection* triggerStartup = nullptr;
+                        if (SUCCEEDED(definition->get_Triggers(&triggerStartup)) && triggerStartup) {
+                            LONG triggerCount = 0;
+
+                            if (SUCCEEDED(triggerStartup->get_Count(&triggerCount))) {
+                                for (LONG i = 1; i <= triggerCount; i++) {
+                                    ITrigger* trigger = nullptr;
+
+                                    if (FAILED(triggerStartup->get_Item(i, &trigger)) || !trigger) { continue; }
+
+                                    TASK_TRIGGER_TYPE2 triggerType;
+
+                                    if (SUCCEEDED(trigger->get_Type(&triggerType))) {
+                                        if (triggerType == TASK_TRIGGER_LOGON) {
+                                            //score += 2;
+                                            details.push_back(L"\t[-] INFO: User Logon");
+                                            details.push_back(L"\t\t[+?] Logon persistence");
+                                        }
+                                        else if (triggerType == TASK_TRIGGER_BOOT) {
+                                           // score += 2;
+                                            details.push_back(L"\t[-] INFO: System Startup");
+                                            details.push_back(L"\t\t[+?] Startup persistence");
+                                        }
+                                    }
+                                    trigger->Release();
+                                }
+                            }
+                            triggerStartup->Release();
+                        }
+                        SysFreeString(userId);
+                        principal->Release();
+                    }
+
+                    IRegistrationInfo* regInfo = nullptr;
+
+                    if (SUCCEEDED(definition->get_RegistrationInfo(&regInfo)) && regInfo) {
+                        BSTR creationDate = nullptr;
+                        SYSTEMTIME createdSystem{};
+                        FILETIME createdTime{};
+
+                        if (SUCCEEDED(regInfo->get_Date(&creationDate)) && creationDate && swscanf_s(creationDate, L"%hu-%hu-%huT%hu:%hu:%hu", &createdSystem.wYear, &createdSystem.wMonth, &createdSystem.wDay, &createdSystem.wHour, &createdSystem.wMinute, &createdSystem.wSecond) == 6 && SystemTimeToFileTime(&createdSystem, &createdTime)) {
                             FILETIME now{};
-                            SYSTEMTIME createdSystem{};
+                            GetSystemTimeAsFileTime(&now);
 
                             ULARGE_INTEGER current{};
                             current.LowPart = now.dwLowDateTime;
                             current.HighPart = now.dwHighDateTime;
 
                             ULARGE_INTEGER created{};
-                            created.LowPart = now.dwLowDateTime;
-                            created.HighPart = now.dwHighDateTime;
+                            created.LowPart = createdTime.dwLowDateTime;
+                            created.HighPart = createdTime.dwHighDateTime;
 
-                            constexpr ULONGLONG attackWindow = 48ULL * 60 * 60 * 10000000ULL;
+                            constexpr ULONGLONG attackWindow = 62ULL * 60 * 60 * 10000000ULL; // Use 62 hours to account for timezone issues. Ideally hte program will standardize timezones in the future, but for now this patch works good enough.
 
                             if (current.QuadPart >= created.QuadPart && current.QuadPart - created.QuadPart <= attackWindow) {
                                 score += 3;
                                 details.push_back(L"\t[-] Created: " + std::wstring(creationDate));
                                 details.push_back(L"\t\t[+3] Recently created");
                             }
-                            SysFreeString(creationDate);
-                            regInfo->Release();
-                        }*/
-                        SysFreeString(userId);
-                        principal->Release();
+                        }
+                        SysFreeString(creationDate);
+                        regInfo->Release();
                     }
 
                     IActionCollection* actions = nullptr;

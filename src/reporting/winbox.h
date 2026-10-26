@@ -3,6 +3,7 @@
 
 // Extended feature popups
 void popREGAlert(const DetectionResult& result);
+void taskAlert(const TaskSchResult& result);
 
 // Consumer termination boxes
 void noticeTermination();

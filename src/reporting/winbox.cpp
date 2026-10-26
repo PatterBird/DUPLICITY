@@ -42,6 +42,31 @@ void popREGAlert(const DetectionResult& result) {
 
 }
 
+void taskAlert(const TaskSchResult& result) {
+    std::wstring message;
+
+    message += L"Name: ";
+    message += std::wstring(result.name.begin(), result.name.end());
+    message += L"\n";
+
+    message += L"Location: ";
+    message += result.triggerPath;
+    message += L"\n";
+
+    message += L"Reason: ";
+    message += std::wstring(result.reason.begin(), result.reason.end());
+    message += L"\n";
+
+
+    if (!result.details.empty()) {
+        message += L"Details:\n";
+        for (const auto& detail : result.details) {
+            message += detail;
+            message += L"\n";
+        }
+    }
+    MessageBoxW(NULL, message.c_str(), L"Scheduled Task Flagged", MB_OK | MB_ICONWARNING | MB_TOPMOST);
+}
 
 void alertXYZ() {
 	// Test alert
