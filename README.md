@@ -29,7 +29,7 @@ Main Developer:<br>★ Rebekah C (Patter_Bird)
 
 **Issues Affecting All Versions:** There is a race condition regarding the shutdown logic for ETW's session threads. If the race condition is hit the program will not terminate the ETW session and DUPLICITY will continue to log events. The exploit window for this has been reduced from ~6 seconds to microseconds. While it is not fully patched, the condition is unlikely to occur, so a full fix has been backlogged for the time.
 
-Ironically Microsoft Defender flags this program as a trojan instead of the actual malware on the comp boxes. You may need to allowlist the program prior ot use.
+Ironically Microsoft Defender flags this program as a trojan instead of the actual malware on the comp boxes. You may need to allowlist the program prior to use.
 
 ## What this Project Does
 
