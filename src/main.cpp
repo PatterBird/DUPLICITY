@@ -27,11 +27,13 @@ int main(int argc, char *argv[]){
     // Handle backup relaunches from interfearing with the program
     if (hMutex == NULL) {
         std::cerr << "[!] Failed to create application mutex. Error: " << mutexError << '\n';
+        OutputDebugStringW(L"[KD] Failed to create application mutex.");   // DbgPrint()
         return 1;
     }
     if (GetLastError() == ERROR_ALREADY_EXISTS) {
         std::cout << "[!] DUPLICITY is already running.\n";
         CloseHandle(hMutex);
+        OutputDebugStringW(L"[KD] Sucessfully closed the duplicate instance of DUPLICITY"); 
         return 0;
     }
 
@@ -149,7 +151,7 @@ void extendedScan() {
             std::wcout << L"\t#### Scan Time: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << " ####\n" << std::endl;
         }
        
-        std::cout << "[?] Registry Check\n" << std::endl;
+        std::cout << "[?] Registry / Config Check\n" << std::endl;
         regScan();
         std::cout << "\n[?] User Audit Check\n" << std::endl;
         users ? userAudit() : (void)(std::cout << "\n\t[-] User Audit Skipped\n");

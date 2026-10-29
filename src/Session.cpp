@@ -11,6 +11,7 @@ static std::unique_ptr<user_trace> ETWtrace;
 static std::atomic<bool> etwStarted{ false };   // Patching the race condition oops. There is still technically a small window, but thats a later problem.
 
 void StartEtwSession(){
+    OutputDebugStringW(L"[KD > ETW-0] StartEtwSession() entered\n");
     ETWtrace = std::make_unique<user_trace>(L"DUPLICITY_ETWsession");
 
     // Monitor for process creation
@@ -33,17 +34,22 @@ void StartEtwSession(){
         std::cout << "[DEBUG] Shutdown requested before ETW could start!\n";
         return;
     }
+    OutputDebugStringW(L"[KD > ETW-1] Running check passed\n");
 
     // Starts the ETW session
-    std::cout << "[DEBUG] Calling ETWtrace.start()\n";
+    //std::cout << "[DEBUG] Calling ETWtrace.start()\n";
     etwStarted = true;
+    OutputDebugStringW(L"[KD > ETW-2] etwStarted set to TRUE, calling start()\n");
     ETWtrace->start();
     etwStarted = false;
-    std::cout << "[DEBUG] PID " << GetCurrentProcessId() << " ETWtrace.start() returned\n";
+    OutputDebugStringW(L"[KD > ETW-3] ETWtrace.start() returned\n");
+    //std::cout << "[DEBUG] PID " << GetCurrentProcessId() << " ETWtrace.start() returned\n";
 }
 
 void stopETWSession(){
+    OutputDebugStringW(L"[KD > ETW-4] stopETWSession entered\n");
     if (etwStarted && ETWtrace) {
+        OutputDebugStringW(L"[KD ETW-5] Calling ETWtrace.stop()\n");
         ETWtrace->stop();
     }
 }
