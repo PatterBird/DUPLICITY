@@ -17,3 +17,6 @@ void userAudit();
 
 // MS Defender
 void MSDefend();
+// Called by regScan()
+DetectionResult defenderServiceCheck();
+DetectionResult defenderDriverCheck();

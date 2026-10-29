@@ -442,8 +442,13 @@ DetectionResult defendKeys(REGSAM bitVer) {
         L"SOFTWARE\\Microsoft\\Windows Defender\\Real-Time Protection",
         L"SOFTWARE\\Microsoft\\Windows Defender\\Features",
         L"SYSTEM\\CurrentControlSet\\Services\\WinDefend",
-        L"SYSTEM\\CurrentControlSet\\Services\\WdNisSvc"
+        L"SYSTEM\\CurrentControlSet\\Services\\SecurityHealthService",
+        L"SYSTEM\\CurrentControlSet\\Services\\wscsvc",
+        L"SYSTEM\\CurrentControlSet\\Services\\mpssvc",
+        L"SYSTEM\\CurrentControlSet\\Services\\BFE",
+        L"SOFTWARE\\Microsoft\\Windows Security Health\\State"
     };
+
     bool suspicious = false;
     std::wstring trigger;
     std::vector<std::wstring> details;
@@ -452,10 +457,10 @@ DetectionResult defendKeys(REGSAM bitVer) {
         const std::wstring path = L"HKLM\\" + subkey;
         auto opened = openRegistryKey(HKEY_LOCAL_MACHINE, subkey, bitVer);
         if (((opened.status == ERROR_FILE_NOT_FOUND || opened.status == ERROR_PATH_NOT_FOUND))) {
-            if (subkey.find(L"\\Services\\WinDefend") != std::wstring::npos || subkey.find(L"\\Services\\WdNisSvc") != std::wstring::npos) {
+            if ((bitVer != KEY_WOW64_32KEY) && (subkey.find(L"\\Services\\mpssvc") != std::wstring::npos || subkey.find(L"\\Services\\BFE") != std::wstring::npos || subkey.find(L"\\Services\\WdFilter") != std::wstring::npos || subkey.find(L"\\Services\\WinDefend") != std::wstring::npos || subkey.find(L"\\Services\\SecurityHealthService") != std::wstring::npos || subkey.find(L"\\Services\\wscsvc") != std::wstring::npos)) {
                 suspicious = true;
                 if (trigger.empty()) { trigger = path; }
-                details.push_back(path + L": Defender service key missing.");
+                details.push_back(path + L": Defender service key missing! Defender, and its related compoents, may be compromised");
             }
             continue;
         }
@@ -482,9 +487,10 @@ DetectionResult defendKeys(REGSAM bitVer) {
             bool flagged = exclusion;
 
             if (isDword) {
-                if ((entry.name == L"DisableAntiSpyware" || entry.name == L"DisableAntiVirus" || entry.name == L"DisableRealtimeMonitoring" || entry.name == L"DisableBehaviorMonitoring" || entry.name == L"DisableScriptScanning" || entry.name == L"DisableScanningNetworkFiles") && number != 0) { flagged = true; }
+                if ((entry.name == L"DisableAntiSpyware" || entry.name == L"DisableAntiVirus" || entry.name == L"DisableRealtimeMonitoring" || entry.name == L"DisableBehaviorMonitoring" || entry.name == L"DisableScriptScanning" || entry.name == L"DisableAVCheck" || entry.name == L"DisableScanningNetworkFiles") && number != 0) { flagged = true; }
                 if ((entry.name == L"TamperProtection" || entry.name == L"PUAProtection") && number == 0) { flagged = true; }
-                if (entry.name == L"Start" && number == 4 && (subkey.find(L"\\Services\\WinDefend") != std::wstring::npos || subkey.find(L"\\Services\\WdNisSvc") != std::wstring::npos)) { flagged = true; }
+                if (entry.name == L"Start" && number == 4 && (subkey.find(L"\\Services\\WinDefend") != std::wstring::npos ||
+                    subkey.find(L"\\Services\\SecurityHealthService") != std::wstring::npos || subkey.find(L"\\Services\\wscsvc") != std::wstring::npos || subkey.find(L"\\Services\\mpssvc") != std::wstring::npos || subkey.find(L"\\Services\\BFE") != std::wstring::npos)) { flagged = true; }
             }else if ((entry.name == L"DisableAntiSpyware" || entry.name == L"DisableAntiVirus" || entry.name == L"DisableRealtimeMonitoring" || entry.name == L"DisableBehaviorMonitoring" || entry.name == L"DisableScriptScanning" || entry.name == L"DisableScanningNetworkFiles" || entry.name == L"TamperProtection" || entry.name == L"PUAProtection") && !isDword) {
                 flagged = true;
             }
@@ -497,13 +503,23 @@ DetectionResult defendKeys(REGSAM bitVer) {
             }
         }
     }
-    return { suspicious, "Defender", suspicious ? "Defender configuration findings or read errors." : "No Defender values flagged.", L"HKLM\\SOFTWARE\\Microsoft\\Windows Defender", details, viewLabel(bitVer) };
+    return { suspicious, "Defender", suspicious ? "Defender configuration findings or read errors." : "No Defender values flagged.", trigger.empty() ? L"HKLM\\SOFTWARE\\Microsoft\\Windows Defender" : trigger, details, viewLabel(bitVer) };
 }
 
 // Reports the result of a check and queues flagged checks
 void reportResult(const DetectionResult& result) {
     std::cout << "[" << result.name << "]\n" << "\t[-] Version : " << result.registryView << "\n" << "\t[-] Result: " << (result.suspicious ? "FLAGGED" : "CLEAN") << "\n" << "\t[-] Reason: " << result.reason << "\n";
     if (!result.triggerPath.empty()) { std::wcout << L"\t[-] Registry: " << result.triggerPath << L"\n"; }
+    for (const auto& detail : result.details) {
+        std::wcout << L"\t[-] " << detail << L"\n";
+    }
+    if (result.suspicious) queueAlert(result);
+}
+
+// Rewrite for defender service and not registry
+void reportResult2(const DetectionResult& result) {
+    std::cout << "[" << result.name << "]\n" << "\t[-] Config : " << result.registryView << "\n" << "\t[-] Result: " << (result.suspicious ? "FLAGGED" : "CLEAN") << "\n" << "\t[-] Reason: " << result.reason << "\n";
+    if (!result.triggerPath.empty()) { std::wcout << L"\t[-] Location: " << result.triggerPath << L"\n"; }
     for (const auto& detail : result.details) {
         std::wcout << L"\t[-] " << detail << L"\n";
     }
@@ -566,4 +582,6 @@ void regScan() {
     reportResult(ifeo(KEY_WOW64_32KEY));
     reportResult(defendKeys(KEY_WOW64_64KEY));
     reportResult(defendKeys(KEY_WOW64_32KEY));
+    reportResult2(defenderServiceCheck());
+    //reportResult2(defenderDriverCheck());
 }

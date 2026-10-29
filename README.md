@@ -43,7 +43,7 @@ This program takes in ETW events from kernel & user mode providers in order to b
 
 #### Extended Features
 
-The extended features complement the main ETW program by addressing some of its shortcomings. DUPLICITY's ETW consumer excels at getting real time events, but it cannot retroactively read events that have already happened. Because of this, DUPLICITY leaves a visibility hole when it is not running & storing logs. To help remediate this gap, the extended features option parses the registry, audits users & groups, reviews scheduled tasks, and scans Event Viewer's past logs looking for IOCs that would have not be caught by the real time ETW consumer.
+The extended features complement the main ETW program by addressing some of its shortcomings. DUPLICITY's ETW consumer excels at getting real time events, but it cannot retroactively read events that have already happened. Because of this, DUPLICITY leaves a visibility hole when it is not running & storing logs. To help remediate this gap, the extended features option parses the registry, audits users & groups, reviews scheduled tasks, and scans Event Viewer's past logs looking for IOCs that would have not be caught by the real time ETW consumer. These checks are designed to be quick and provide a general baseline report of the system.
 
 ![ETW structure](./img/ETWlayout.png)
 
@@ -93,7 +93,8 @@ To comply with NCCDC, DUPLICITY adheres the following rules:
 - Todo: Parses Event Viewer logs for XXX.
 - Audits local & domain users & groups as well as identifies the domain controller (if applicable)
 - In Progress: Scans the registry for common persistence locations and misconfigurations.
-- In Progress: Parses task scheduler and displays possibly suspicious tasks
+- In Progress: Checks Defender's service and driver configurations as a part of Defender's registry check.
+- Parses task scheduler and displays possibly suspicious tasks
 
 #### User Interface & Logging
 
@@ -200,7 +201,7 @@ This folder holds the logic for reporting and logging events / artifacts. By def
 
 ![Example alert](./img/selectiveAlertDefender.png)
 
-The WinBox reporting feature uses a queue. Only one pop up alert will be displayed at a time to reduce screen clutter. Note that if the program is killed the queue is ended as well, so any alerts that are next in line will be wiped. However, the alerts will still be logged to the terminal for recovery.
+The WinBox reporting feature uses a queue. Only one pop up alert will be displayed at a time to reduce screen clutter.
 
 #### main.cpp
 

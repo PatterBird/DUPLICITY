@@ -187,9 +187,11 @@
   <ItemGroup>
     <ClCompile Include="src\antiAttackerAttempts\antiRTthoughts.cpp" />
     <ClCompile Include="src\extended\eventViewer.cpp" />
+    <ClCompile Include="src\extended\findExt.cpp" />
     <ClCompile Include="src\extended\osCheck.cpp" />
     <ClCompile Include="src\extended\regsitry.cpp" />
     <ClCompile Include="src\extended\runDefender.cpp" />
+    <ClCompile Include="src\extended\serviceStatus.cpp" />
     <ClCompile Include="src\extended\taskSch.cpp" />
     <ClCompile Include="src\extended\userAudit.cpp" />
     <ClCompile Include="src\main.cpp" />
