@@ -72,7 +72,7 @@ To comply with NCCDC, DUPLICITY adheres the following rules:
 #### Keeping the Program Effective, Alive & Active
 
 - Low resource load on the OS while running
-- Built using C++ for speed
+- Built using C++ for speed *(and easily programming memory issues)*
 - ToDo: Uses persistence mechanisms to ensure program uptime
 - Ensures a single instance of DUPLICITY runs across the entire machine (eliminates issues when multiple instances of DUPLICITY try to run)
 - In Progress: Thwarts basic termination attempts
@@ -82,7 +82,7 @@ To comply with NCCDC, DUPLICITY adheres the following rules:
 #### Logging Activity with ETW Providers
 
 - In Progress: Uses the Microsoft-Windows-Kernel-Process provider to watch process creation & termination events. Image loads (aka DLLs) are being reworked and are temporaraly removed.
-- ToDo: Uses the Microsoft-Windows-Kernel-XXX to monitor stack traces
+- In progress: Uses the Microsoft-Windows-Kernel-Process to monitor stack traces
 - ToDo: Uses the Microsoft-Windows-Kernel-XXX to watch network traffic
 - ToDo: Uses the Microsoft-Windows-Kernel-XXX to monitor drivers loaded & XXX
 - ToDo: Uses the Microsoft-Windows-Kernel-XXX to monitor file access
@@ -95,10 +95,11 @@ To comply with NCCDC, DUPLICITY adheres the following rules:
 - In Progress: Scans the registry for common persistence locations and misconfigurations.
 - In Progress: Checks Defender's service and driver configurations as a part of Defender's registry check.
 - Parses task scheduler and displays possibly suspicious tasks
+- In Progress: Looks for untrusted executables running on the system.
 
 #### User Interface & Logging
 
-- WinBox alerts for high priority finds.
+- In progress: WinBox alerts for high priority finds.
 - ToDo: Create a structure output file that can be easily parsed to see trends. (Also send info to Splunk/Event Viewer?) 
 
 ## Setting Up Visual Studio

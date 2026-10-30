@@ -92,15 +92,12 @@ void ProcessMicrosoftKernelProcessEvent(const EVENT_RECORD& record, const trace_
     }
 }
 
-void MonitorProcessCreate(krabs::user_trace& trace, krabs::provider<>& provider)
-{
-    provider.any(0x10 | 0x40);     // WINEVENT_KEYWORDS
+void MonitorProcessCreate(krabs::user_trace& trace, krabs::provider<>& provider){
+    //provider.any(0x10 | 0x40);     // WINEVENT_KEYWORDS
 
     provider.add_on_event_callback([](const EVENT_RECORD& record,const trace_context& trace_context){
             ProcessMicrosoftKernelProcessEvent(record,trace_context);
         });
-
-    trace.enable(provider);
 }
 
 // Need to rework
