@@ -11,6 +11,7 @@ void findUnsigned();
 void regScan();
 
 // Event Viewer Check
+void eventView();
 
 // Task Scheduler Check
 void taskCheck();

@@ -162,7 +162,7 @@ void extendedScan() {
         std::wcout << L"\n[?] Task Scheduler Check\n" << std::endl;
         taskCheck();
         std::wcout << L"\n[?] Event Viewer\n" << std::endl;
-        // ??
+        eventView();
         std::wcout << L"\nCHECKS COMPLETED - Review results and resolve potentialy problamatic entries if found\n" << std::endl;
         // Save results to file
 
