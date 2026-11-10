@@ -508,20 +508,20 @@ DetectionResult defendKeys(REGSAM bitVer) {
 
 // Reports the result of a check and queues flagged checks
 void reportResult(const DetectionResult& result) {
-    std::cout << "[" << result.name << "]\n" << "\t[-] Version : " << result.registryView << "\n" << "\t[-] Result: " << (result.suspicious ? "FLAGGED" : "CLEAN") << "\n" << "\t[-] Reason: " << result.reason << "\n";
-    if (!result.triggerPath.empty()) { std::wcout << L"\t[-] Registry: " << result.triggerPath << L"\n"; }
+    std::cout << "[" << result.name << "]\n" << "\t[-] Version : " << result.registryView << std::endl << "\t[-] Result: " << (result.suspicious ? "FLAGGED" : "CLEAN") << std::endl << "\t[-] Reason: " << result.reason << std::endl;
+    if (!result.triggerPath.empty()) { std::wcout << L"\t[-] Registry: " << result.triggerPath << std::endl; }
     for (const auto& detail : result.details) {
-        std::wcout << L"\t[-] " << detail << L"\n";
+        std::wcout << L"\t[-] " << detail << std::endl;
     }
     if (result.suspicious) queueAlert(result);
 }
 
 // Rewrite for defender service and not registry
 void reportResult2(const DetectionResult& result) {
-    std::cout << "[" << result.name << "]\n" << "\t[-] Config : " << result.registryView << "\n" << "\t[-] Result: " << (result.suspicious ? "FLAGGED" : "CLEAN") << "\n" << "\t[-] Reason: " << result.reason << "\n";
-    if (!result.triggerPath.empty()) { std::wcout << L"\t[-] Location: " << result.triggerPath << L"\n"; }
+    std::cout << "[" << result.name << "]\n" << "\t[-] Config : " << result.registryView << "\n" << "\t[-] Result: " << (result.suspicious ? "FLAGGED" : "CLEAN") << "\n" << "\t[-] Reason: " << result.reason << std::endl;
+    if (!result.triggerPath.empty()) { std::wcout << L"\t[-] Location: " << result.triggerPath << std::endl; }
     for (const auto& detail : result.details) {
-        std::wcout << L"\t[-] " << detail << L"\n";
+        std::wcout << L"\t[-] " << detail << std::endl;
     }
     if (result.suspicious) queueAlert(result);
 }
@@ -572,7 +572,7 @@ void regRunner() {
 // Put checks here if you want the program to run them
 void regScan() {
     std::lock_guard<std::mutex> lock(cmdMutex);
-    std::cout << "## Scanning For Suspicious Registry Keys ##\n";
+    std::wcout << L"## Scanning For Suspicious Registry Keys ##\n";
     reportResult(bootPersist(KEY_WOW64_64KEY));
     reportResult(bootPersist(KEY_WOW64_32KEY));
     reportResult(winLogon(KEY_WOW64_64KEY));
@@ -582,6 +582,7 @@ void regScan() {
     reportResult(ifeo(KEY_WOW64_32KEY));
     reportResult(defendKeys(KEY_WOW64_64KEY));
     reportResult(defendKeys(KEY_WOW64_32KEY));
+    // Defender service checks, not regkey but close enough
     reportResult2(defenderServiceCheck());
-    //reportResult2(defenderDriverCheck());
+    reportResult2(defenderDriverCheck());
 }

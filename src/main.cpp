@@ -1,5 +1,7 @@
 // THIS PROJECT MUST BE RAN AS AN ADMINISTRATOR OR NT-SYSTEM ### FAILURE TO DO SO WILL RESULT IN ERROR //
 
+// Add this to your global header to catch illegal byte-stream usages at compile time
+
 // TODO: FIX TIMESTAMPS FOR EVENTS
 
 #include "./reporting/queue.h"
@@ -31,7 +33,7 @@ int main(int argc, char *argv[]){
         return 1;
     }
     if (GetLastError() == ERROR_ALREADY_EXISTS) {
-        std::cout << "[!] DUPLICITY is already running.\n";
+        std::wcout << L"[!] DUPLICITY is already running.\n";
         CloseHandle(hMutex);
         OutputDebugStringW(L"[KD] Sucessfully closed the duplicate instance of DUPLICITY"); 
         return 0;
@@ -51,10 +53,10 @@ int main(int argc, char *argv[]){
     std::thread alertThread;
 
     // Welcome Info
-    std::cout << "#########################################################" << std::endl;
-    std::cout << "############### STARTING DUPLICITY [ALPHA] ###############" << std::endl;
-    std::cout << "#########################################################" << std::endl;
-    std::cout << "      To see a list of features, use the -h flag\n" << std::endl;
+    std::wcout << L"#########################################################" << std::endl;
+    std::wcout << L"############### STARTING DUPLICITY [ALPHA] ###############" << std::endl;
+    std::wcout << L"#########################################################" << std::endl;
+    std::wcout << L"      To see a list of features, use the -h flag\n" << std::endl;
 
     // CMDline flag parser
     int i = 1;
@@ -75,27 +77,27 @@ int main(int argc, char *argv[]){
             mode = 2;
             users = FALSE;
         }else if (flag == "-h" || flag == "--help") {
-            std::cout << "[?] Usage: duplicity.exe [options]" << std::endl;
-            std::cout << "  [+] Options:" << std::endl;
-            std::cout << "  -d, --defender \tRuns a quick Defender scan periodically." << std::endl;
-            std::cout << "  -e, --extended \tEnables extended monitoring along with ETW.\n To run the extended scan without querying users run -e1 or --extended=1" << std::endl;
-            std::cout << "  -eo, --extended-only \tOnly runs the extended monitoring feature. To run the extended scan without querying users run -e01 or --extended-only=1" << std::endl;
-            std::cout << "  -f, --file \t\tSpecify the file to log the results to. (Not implemented)" << std::endl;  // ToDo: Implement
-            std::cout << "  -h, --help \t\tDisplays the help page." << std::endl;
-            std::cout << "  -nv, --no-verbose \tDisables verbose alerts. Verbosity is enabled by default. (Not implemented)" << std::endl;  // ToDo: Implement
-            std::cout << "\n" << std::endl;
+            std::wcout << L"[?] Usage: duplicity.exe [options]" << std::endl;
+            std::wcout << L"  [+] Options:" << std::endl;
+            std::wcout << L"  -d, --defender \tRuns a Defender full scan periodically." << std::endl;
+            std::wcout << L"  -e, --extended \tEnables extended monitoring along with ETW.\n To run the extended scan without querying users run -e1 or --extended=1" << std::endl;
+            std::wcout << L"  -eo, --extended-only \tOnly runs the extended monitoring feature. To run the extended scan without querying users run -e01 or --extended-only=1" << std::endl;
+            std::wcout << L"  -f, --file \t\tSpecify the file to log the results to. (Not implemented)" << std::endl;  // ToDo: Implement
+            std::wcout << L"  -h, --help \t\tDisplays the help page." << std::endl;
+            std::wcout << L"  -nv, --no-verbose \tDisables verbose alerts. Verbosity is enabled by default. (Not implemented)" << std::endl;  // ToDo: Implement
+            std::wcout << L"\n" << std::endl;
             return 0;
         }else if (flag == "-nv" || flag == "--no-verbose") {
             verbose = 0;
-            std::cout << "[!] Verbose flagging is disabled." << std::endl;
-            std::cout << "\n" << std::endl;
+            std::wcout << L"[!] Verbose flagging is disabled." << std::endl;
+            std::wcout << L"\n" << std::endl;
         }else if (flag == "-f" || flag == "--file") {
             verbose = 0;
-            std::cout << "[!] Logging output to..." << std::endl;
-            std::cout << "\n" << std::endl;
+            std::wcout << L"[!] Logging output to..." << std::endl;
+            std::wcout << L"\n" << std::endl;
         }else {
-            std::cout << "[!] Unknown flag :(" << std::endl;
-            std::cout << "\n" << std::endl;
+            std::wcout << "[!] Unknown flag :(" << std::endl;
+            std::wcout << L"\n" << std::endl;
             return 0;
         }
         i++;
@@ -144,22 +146,24 @@ void extendedScan() {
     while (running) {
         {
             std::lock_guard<std::mutex> lock(cmdMutex);
-            std::cout << "\n########## BEGINING EXTENDED SYSTEM SCAN [BETA] ########## " << std::endl;
-            std::cout << "\n     This scan will run automatically every 7 min \n" << std::endl;
+            std::wcout << L"\n########## BEGINING EXTENDED SYSTEM SCAN [BETA] ########## " << std::endl;
+            std::wcout << L"\n     This scan will run automatically every 7 min \n" << std::endl;
             SYSTEMTIME st;
             GetLocalTime(&st);
             std::wcout << L"\t#### Scan Time: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << " ####\n" << std::endl;
         }
        
-        std::cout << "[?] Registry / Config Check\n" << std::endl;
+        //std::wcout << L"[?] Unsigned EXE Check\n" << std::endl;
+        //findUnsigned();
+        std::wcout << L"[?] Registry / Config Check\n" << std::endl;
         regScan();
-        std::cout << "\n[?] User Audit Check\n" << std::endl;
-        users ? userAudit() : (void)(std::cout << "\n\t[-] User Audit Skipped\n");
-        std::cout << "\n[?] Task Scheduler Check\n" << std::endl;
+        std::wcout << L"\n[?] User Audit Check\n" << std::endl;
+        users ? userAudit() : (void)(std::wcout << L"\n\t[-] User Audit Skipped\n");
+        std::wcout << L"\n[?] Task Scheduler Check\n" << std::endl;
         taskCheck();
-        std::cout << "\n[?] Event Viewer\n" << std::endl;
+        std::wcout << L"\n[?] Event Viewer\n" << std::endl;
         // ??
-        std::cout << "\nCHECKS COMPLETED - Review results and resolve potentialy problamatic entries if found\n" << std::endl;
+        std::wcout << L"\nCHECKS COMPLETED - Review results and resolve potentialy problamatic entries if found\n" << std::endl;
         // Save results to file
 
         for (int i = 0; i < 420 && running; i++){

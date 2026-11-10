@@ -1,6 +1,7 @@
 #include "Session.h"
 #include "./reporting/sharedHeaders/shutdown.h"
 #include "./providers/processStartTerminations/ProcStartLog.h"
+#include "./providers/stackTracing/stackPwned.h"
 #include "./Microsoft.O365.Security.Krabsetw.4.4.2/lib/native/include/krabs.hpp"
 #include <atomic>
 #include <iostream>
@@ -14,9 +15,13 @@ void StartEtwSession(){
     OutputDebugStringW(L"[KD > ETW-0] StartEtwSession() entered\n");
     ETWtrace = std::make_unique<user_trace>(L"DUPLICITY_ETWsession");
 
-    // Monitor for process creation
-    provider<> processProvider(L"Microsoft-Windows-Kernel-Process");    // ProccessProvider and trace session must be in the same function to avoid lifetime issues.
+    // Monitor for process creation & stack jumps
+    provider<> processProvider(L"Microsoft-Windows-Kernel-Process"); 
+    processProvider.any(0x10 | 0x20 | 0x40);
     MonitorProcessCreate(*ETWtrace, processProvider);
+    MonitorStackSmash(*ETWtrace, processProvider);
+    ETWtrace->enable(processProvider);
+
 
     // Monitor for known registry attacks
 /*   provider<> processProvider(L"Microsoft-Windows-Kernel-Registry");
@@ -31,19 +36,19 @@ void StartEtwSession(){
 
     if (!running){
         ETWtrace.reset();
-        std::cout << "[DEBUG] Shutdown requested before ETW could start!\n";
+        std::wcout << L"[DEBUG] Shutdown requested before ETW could start!\n";
         return;
     }
     OutputDebugStringW(L"[KD > ETW-1] Running check passed\n");
 
     // Starts the ETW session
-    //std::cout << "[DEBUG] Calling ETWtrace.start()\n";
+    //std::wcout << L"[DEBUG] Calling ETWtrace.start()\n";
     etwStarted = true;
     OutputDebugStringW(L"[KD > ETW-2] etwStarted set to TRUE, calling start()\n");
     ETWtrace->start();
     etwStarted = false;
     OutputDebugStringW(L"[KD > ETW-3] ETWtrace.start() returned\n");
-    //std::cout << "[DEBUG] PID " << GetCurrentProcessId() << " ETWtrace.start() returned\n";
+    //std::wcout << L"[DEBUG] PID " << GetCurrentProcessId() << " ETWtrace.start() returned\n";
 }
 
 void stopETWSession(){

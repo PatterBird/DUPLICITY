@@ -8,8 +8,6 @@ using namespace krabs;  // Wrapper for handling ETW
 BOOL checkDLL(const std::wstring& dllName);
 std::wstring convertDllPath(const std::wstring& path);
 
-// NOTE: depending on the data type you may need to use std::cout or std:wcout for handling data!
-
 void ProcessMicrosoftKernelProcessEvent(const EVENT_RECORD& record, const trace_context& trace_context) {
 
     // Schema and parser are used to read event fields
@@ -34,9 +32,9 @@ void ProcessMicrosoftKernelProcessEvent(const EVENT_RECORD& record, const trace_
         auto createimageName = parser.parse<std::wstring>(L"ImageName");
 
         // Display info to terminal
-        std::cout << "[+] Process created" << std::endl;
-        std::cout << "\t[-] PID: " << createprocessId << std::endl;
-        std::cout << "\t[-] ParentPID: " << createparentProcessId << std::endl;
+        std::wcout << L"[+] Process created" << std::endl;
+        std::wcout << L"\t[-] PID: " << createprocessId << std::endl;
+        std::wcout << L"\t[-] ParentPID: " << createparentProcessId << std::endl;
 
         // Standarize create time to something readable
         if ( FileTimeToSystemTime(&createcreateTime, &utcst) && SystemTimeToTzSpecificLocalTime(nullptr, &utcst, &st)){
@@ -44,7 +42,7 @@ void ProcessMicrosoftKernelProcessEvent(const EVENT_RECORD& record, const trace_
         }
 
         std::wcout << "\t[-] Image Name: " << createimageName << std::endl;
-        std::cout << "\n" << std::endl;
+        std::wcout << L"\n" << std::endl;
 
         // Log the event
 
@@ -59,17 +57,18 @@ void ProcessMicrosoftKernelProcessEvent(const EVENT_RECORD& record, const trace_
         auto termexitTime = parser.parse<FILETIME>(L"ExitTime");
         auto termimageName = parser.parse<std::string>(L"ImageName");
 
-        std::cout << "[+] Process terminated" << std::endl;
-        std::cout << "\t[-] PID: " << termprocessId << std::endl;
+        std::wcout << L"[+] Process terminated" << std::endl;
+        std::wcout << L"\t[-] PID: " << termprocessId << std::endl;
         if (FileTimeToSystemTime(&termcreateTime, &utcst) && SystemTimeToTzSpecificLocalTime(nullptr, &utcst, &st)) {
             std::wcout << L"\t[-] Create Time: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << std::endl;
         }
         if (FileTimeToSystemTime(&termexitTime, &utcst) && SystemTimeToTzSpecificLocalTime(nullptr, &utcst, &st)) {
             std::wcout << L"\t[-] Termination Time: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << std::endl;
         }
-        std::cout << "\t[-] Image Name: " << termimageName << std::endl;
-        std::cout << "\n" << std::endl;
+        std::wcout << L"\t[-] Image Name: " << std::wstring(termimageName.begin(), termimageName.end()) << std::endl;
+        std::wcout << L"\n" << std::endl;
     } else if (schema.event_id() == 5 ) {
+        return;         // DLL removed for now
 
         auto imgimageName = parser.parse<std::wstring>(L"ImageName");
         auto imgprocessId = parser.parse<uint32_t>(L"ProcessID");
@@ -84,11 +83,11 @@ void ProcessMicrosoftKernelProcessEvent(const EVENT_RECORD& record, const trace_
 
         std::lock_guard<std::mutex> lock(cmdMutex);
         std::wcout << L"[!] ETW EVENT: " << (wchar_t*)schema.task_name() << std::endl;
-        std::cout << "[+] Image Loaded" << std::endl;
-        std::wcout << "\t[-] Image Name: " << dllPath << std::endl;
-        std::cout << "\t[-] PID: " << imgprocessId << std::endl;
-        std::cout << "\t[-] Checksum: " << imgcheckSum << std::endl;
-        std::cout << "\n" << std::endl;
+        std::wcout << L"[+] Image Loaded" << std::endl;
+        std::wcout << L"\t[-] Image Name: " << dllPath << std::endl;
+        std::wcout << L"\t[-] PID: " << imgprocessId << std::endl;
+        std::wcout << L"\t[-] Checksum: " << imgcheckSum << std::endl;
+        std::wcout << L"\n" << std::endl;
     }
 }
 

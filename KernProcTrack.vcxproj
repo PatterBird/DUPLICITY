@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -177,6 +177,7 @@
     <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\version_helpers.hpp" />
     <ClInclude Include="src\Microsoft.O365.Security.Krabsetw.4.4.2\lib\native\include\krabs\wstring_convert.hpp" />
     <ClInclude Include="src\providers\processStartTerminations\ProcStartLog.h" />
+    <ClInclude Include="src\providers\stackTracing\stackPwned.h" />
     <ClInclude Include="src\reporting\sharedHeaders\detRes.h" />
     <ClInclude Include="src\reporting\queue.h" />
     <ClInclude Include="src\reporting\sharedHeaders\safeWrite.h" />
@@ -187,7 +188,7 @@
   <ItemGroup>
     <ClCompile Include="src\antiAttackerAttempts\antiRTthoughts.cpp" />
     <ClCompile Include="src\extended\eventViewer.cpp" />
-    <ClCompile Include="src\extended\findExt.cpp" />
+    <ClCompile Include="src\extended\findUnsigned.cpp" />
     <ClCompile Include="src\extended\osCheck.cpp" />
     <ClCompile Include="src\extended\regsitry.cpp" />
     <ClCompile Include="src\extended\runDefender.cpp" />
@@ -198,6 +199,7 @@
     <ClCompile Include="src\providers\processStartTerminations\ProcStartLog.cpp" />
     <ClCompile Include="src\providers\process\iamsodone.cpp" />
     <ClCompile Include="src\providers\registryFeatures\RegChecks.cpp" />
+    <ClCompile Include="src\providers\stackTracing\stackPwned.cpp" />
     <ClCompile Include="src\reporting\eventLogger.cpp" />
     <ClCompile Include="src\reporting\queue.cpp" />
     <ClCompile Include="src\reporting\winbox.cpp" />

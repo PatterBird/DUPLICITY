@@ -24,13 +24,13 @@ BOOL WINAPI termKill(DWORD signal){
 
 // If the program is terminated this function cleans up DUPLICITY correctly.
 void cleanKill() {
-    std::cout << "[DEBUG] Stopping alerting\n";
+    std::wcout << L"[DEBUG] Stopping alerting\n";
 	haltAlertWorker();
-    std::cout << "[DEBUG] Stopping ETW\n";
+    std::wcout << L"[DEBUG] Stopping ETW\n";
     stopETWSession();
-    std::cout << "[DEBUG] Showing termination notice\n";
+    std::wcout << L"[DEBUG] Showing termination notice\n";
     noticeTermination();
-    std::cout << "[DEBUG] cleanKill() finished\n";
+    std::wcout << L"[DEBUG] cleanKill() finished\n";
 }
 
 void winService() {

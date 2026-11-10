@@ -16,7 +16,7 @@ void MSDefend() {
     while (running) {
         if (delay) { startupDelay(); }
         SYSTEMTIME st;
-        wchar_t command[] = L"cmd.exe /C \"\"%ProgramFiles%\\Windows Defender\\MpCmdRun.exe\" -Scan -ScanType 1 > NUL 2>&1\"";
+        wchar_t command[] = L"cmd.exe /C \"\"%ProgramFiles%\\Windows Defender\\MpCmdRun.exe\" -Scan -ScanType 2 > NUL 2>&1\""; // Lowkey got lazy trying to fogure out how to do it with WinAPIs
 
         STARTUPINFOW startInfo = { sizeof(startInfo) };
         PROCESS_INFORMATION procInfo;
@@ -32,17 +32,15 @@ void MSDefend() {
             std::lock_guard<std::mutex> lock(cmdMutex);
             if (exitCode == 0) {
                 GetLocalTime(&st);
-                std::cout << "###############################################################" << std::endl;
-                std::wcout << L"[!] Quick Defender scan completed at: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << std::endl;
-                std::cout << "###############################################################" << std::endl;
-            }
-            else {
-                std::cout << "###############################################################" << std::endl;
-                std::wcout << L"[?] Defender requires user action. Exit code: " << exitCode << L"\n";
-                std::cout << "###############################################################" << std::endl;
+                std::wcout << L"###############################################################" << std::endl;
+                std::wcout << L"[!] Defender full scan completed at: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << std::endl;
+                std::wcout << L"###############################################################" << std::endl;
+            } else {
+                std::wcout << L"###############################################################" << std::endl;
+                std::wcout << L"[?] Defender requires user action. Exit code: " << exitCode << std::endl;
+                std::wcout << L"###############################################################" << std::endl;
 
             }
-
 
             // Clean up
             CloseHandle(procInfo.hProcess);
@@ -50,14 +48,14 @@ void MSDefend() {
         }
         else {
             std::lock_guard<std::mutex> lock(cmdMutex);
-            std::cout << "###############################################################" << std::endl;
-            std::cout << "[!] Quick Defender scan failed to start. Error: " << GetLastError() << std::endl;
-            std::cout << "###############################################################" << std::endl;
+            std::wcout << L"###############################################################" << std::endl;
+            std::wcout << L"[!] Defender full scan failed to start. Error: " << GetLastError() << std::endl;
+            std::wcout << L"###############################################################" << std::endl;
         }
 
         delay = FALSE;
 
-        for (int i = 0; i < 900 && running; i++) {
+        for (int i = 0; i < 2400 && running; i++) {
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
     }

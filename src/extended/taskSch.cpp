@@ -81,15 +81,15 @@ void taskCheck(){
     // Print findings after enumeration finishes.
     for (const auto& result : results) {
         std::cout << "\n[" << result.name << "]\n";
-        std::cout << "\t[-] Result: " << (result.suspicious ? "FLAGGED" : "CLEAN") << "\n";
-        std::cout << "\t[-] Reason: " << result.reason << "\n";
-        std::wcout << L"\t[-] Task: " << result.triggerPath << L"\n";
+        std::cout << "\t[-] Result: " << (result.suspicious ? "FLAGGED" : "CLEAN") << std::endl;
+        std::cout << "\t[-] Reason: " << result.reason << std::endl;
+        std::wcout << L"\t[-] Task: " << result.triggerPath << std::endl;
         for (const auto& detail : result.details) {
             std::wcout << L"\t" << detail << std::endl;
         }
         if (result.suspicious) { queueAlert(result);}
     }
-    std::cout << "\n[!] Number of findings: " << results.size() << std::endl;;
+    std::wcout << L"\n[!] Number of findings: " << results.size() << std::endl;;
 }
 
 std::vector<TaskSchResult> enumTasks(ITaskFolder* folder) {

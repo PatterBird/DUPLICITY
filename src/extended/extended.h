@@ -4,6 +4,9 @@
 // OS Check
 void osCheck();
 
+// Unsiged exe Check
+void findUnsigned();
+
 // Registry Check
 void regScan();
 

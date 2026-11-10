@@ -45,30 +45,30 @@ void localUsers() {
                 if (unixLogon == 0) { std::wcout << L"\t[-] Last Logon: NEVER" << std::endl; }
                 else {
                     if (localtime_s(&localTime, &unixLogon) == 0) {
-                        std::wcout << L"\t[-] Last Logon: " << localTime.tm_year + 1900 << L"/" << localTime.tm_mon + 1 << L"/" << localTime.tm_mday << L" " << localTime.tm_hour << L":" << localTime.tm_min << L":" << localTime.tm_sec << L"\n";
+                        std::wcout << L"\t[-] Last Logon: " << localTime.tm_year + 1900 << L"/" << localTime.tm_mon + 1 << L"/" << localTime.tm_mday << L" " << localTime.tm_hour << L":" << localTime.tm_min << L":" << localTime.tm_sec << std::endl;
                     }
                 }
 
                 std::wcout << L"\t[-] Logon Count: " << pTemp->usri3_num_logons << std::endl;
 
                 if (pTemp->usri3_flags & UF_ACCOUNTDISABLE) {
-                    std::cout << "\t[-] Account is disabled" << std::endl;
+                    std::wcout << L"\t[-] Account is disabled" << std::endl;
                 }
                 if (pTemp->usri3_flags & UF_LOCKOUT) {
-                    std::cout << "\t[-] Account is locked" << std::endl;
+                    std::wcout << L"\t[-] Account is locked" << std::endl;
                 }
                 if (pTemp->usri3_flags & UF_SERVER_TRUST_ACCOUNT){
-                    std::cout << "\t[-] Account is a Domain Controller" << std::endl;
+                    std::wcout << L"\t[-] Account is a Domain Controller" << std::endl;
                 }
                 if (pTemp->usri3_flags & UF_WORKSTATION_TRUST_ACCOUNT) {
-                    std::cout << "\t[-] Account is a Domain Computer" << std::endl;
+                    std::wcout << L"\t[-] Account is a Domain Computer" << std::endl;
                 }
                 pTemp++;
             }
         }
     }
     else {
-        std::cout << "Local User Enum Failed!\n" << std::endl;
+        std::wcout << L"Local User Enum Failed!\n" << std::endl;
     }
 
     if (pBuff != NULL) {
@@ -111,7 +111,7 @@ void domainUsers() {
         return;
     }
     if (connStatus != NetSetupDomainName || domainName == NULL) {
-        std::cout << "\nThis machine is not joined to a domain. Domain user audit skipped." << std::endl;
+        std::wcout << L"\nThis machine is not joined to a domain. Domain user audit skipped." << std::endl;
         if (domainName != NULL){
             NetApiBufferFree(domainName);
         }
@@ -159,24 +159,25 @@ void domainUsers() {
                     if (unixLogon == 0) { std::wcout << L"\t[-] Last Logon: NEVER" << std::endl; }
                     else {
                         if (localtime_s(&localTime, &unixLogon) == 0) {
-                            std::wcout << L"\t[-] Last Logon: " << localTime.tm_year + 1900 << L"/" << localTime.tm_mon + 1 << L"/" << localTime.tm_mday << L" " << localTime.tm_hour << L":" << localTime.tm_min << L":" << localTime.tm_sec << L"\n";
+                            std::wcout << L"\t[-] Last Logon: " << localTime.tm_year + 1900 << L"/" << localTime.tm_mon + 1 << L"/" << localTime.tm_mday << L" " << localTime.tm_hour << L":" << localTime.tm_min << L":" << localTime.tm_sec << std::endl;
                         }
                     }
 
                     std::wcout << L"\t[-] Logon Count: " << pTemp->usri3_num_logons << std::endl;
 
                     if (pTemp->usri3_flags & UF_ACCOUNTDISABLE) {
-                        std::cout << "\t[-] Account is disabled" << std::endl;
+                        std::wcout << L"\t[-] Account is disabled" << std::endl;
                     }
                     if (pTemp->usri3_flags & UF_LOCKOUT) {
-                        std::cout << "\t[-] Account is locked" << std::endl;
+                        std::wcout << L"\t[-] Account is locked" << std::endl;
                     }
                     pTemp++;
                 }
             }
-        }
-        else {
-            std::cout << "Domain User Enum Failed!\n" << std::endl;
+        }else if (domainStatus == ERROR_ACCESS_DENIED) {
+            std::wcout << L"Domain was (most likely) hardened. Cannot query domain users' info\n" << std::endl;
+        }else {
+            std::wcout << L"Domain User Enum Failed!\n" << std::endl;
         }
 
         if (pBuff != NULL) {
@@ -212,7 +213,7 @@ void printUserGroupsDomain(const wchar_t* usrname, LPWSTR dcName) {
 void userAudit() {
     std::lock_guard<std::mutex> lock(cmdMutex);
 
-    std::cout << "## Auditing Users & Groups ##\n";
+    std::wcout << L"## Auditing Users & Groups ##\n";
 
     localUsers();
     domainUsers();

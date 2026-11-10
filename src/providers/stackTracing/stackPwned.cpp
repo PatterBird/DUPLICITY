@@ -36,9 +36,9 @@ void ProcessMicrosoftStackThread(const EVENT_RECORD& record, const trace_context
                 std::wcout << L"[!] ETW EVENT: " << (wchar_t*)schema.task_name() << std::endl;
                 std::wcout << L"[+] Suspicious thread start address\n";
                 std::wcout << L"\t[-] Time: " << st.wYear << L"/" << st.wMonth << L"/" << st.wDay << L" " << st.wHour << L":" << st.wMinute << L":" << st.wSecond << std::endl;
-                std::wcout << L"\t[-] PPID: " << processId << L"\n";
-                std::wcout << L"\t[-] TID: " << threadId << L"\n";
-                std::wcout << L"\t[-] Address: 0x" << std::hex << startAddr << std::dec << L"\n";
+                std::wcout << L"\t[-] PPID: " << processId << std::endl;
+                std::wcout << L"\t[-] TID: " << threadId << std::endl;
+                std::wcout << L"\t[-] Address: 0x" << std::hex << startAddr << std::dec << std::endl;
                 std::wcout << L"\t[-] Memory Type: MEM_PRIVATE\n";
             }
         }

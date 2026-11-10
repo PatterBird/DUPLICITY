@@ -29,8 +29,6 @@ Main Developer:<br>★ Rebekah C (Patter_Bird)
 
 **Issues Affecting All Versions:** There is a race condition regarding the shutdown logic for ETW's session threads. If the race condition is hit the program will not terminate the ETW session and DUPLICITY will continue to log events. The exploit window for this has been reduced from ~6 seconds to microseconds. While it is not fully patched, the condition is unlikely to occur, so a full fix has been backlogged for the time.
 
-Ironically Microsoft Defender flags this program as a trojan instead of the actual malware on the comp boxes. You may need to allowlist the program prior to use.
-
 ## What this Project Does
 
 *This is a post initial hardening tool and should be ran after initial hardening has been completed.*
@@ -93,7 +91,7 @@ To comply with NCCDC, DUPLICITY adheres the following rules:
 - Todo: Parses Event Viewer logs for XXX.
 - Audits local & domain users & groups as well as identifies the domain controller (if applicable)
 - In Progress: Scans the registry for common persistence locations and misconfigurations.
-- In Progress: Checks Defender's service and driver configurations as a part of Defender's registry check.
+- Checks Defender's service and driver configurations as a part of Defender's registry check.
 - Parses task scheduler and displays possibly suspicious tasks
 - In Progress: Looks for untrusted executables running on the system.
 
