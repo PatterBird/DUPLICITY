@@ -82,7 +82,6 @@ To comply with NCCDC, DUPLICITY adheres the following rules:
 - In Progress: Uses the Microsoft-Windows-Kernel-Process provider to watch process creation & termination events. Image loads (aka DLLs) are being reworked and are temporaraly removed.
 - In progress: Uses the Microsoft-Windows-Kernel-Process to monitor stack traces
 - ToDo: Uses the Microsoft-Windows-Kernel-XXX to watch network traffic
-- ToDo: Uses the Microsoft-Windows-Kernel-XXX to monitor drivers loaded & XXX
 - ToDo: Uses the Microsoft-Windows-Kernel-XXX to monitor file access
 - ToDo: Uses the Microsoft-Windows-Kernel-XXX to ???
 

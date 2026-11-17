@@ -188,7 +188,6 @@
   <ItemGroup>
     <ClCompile Include="src\antiAttackerAttempts\antiRTthoughts.cpp" />
     <ClCompile Include="src\extended\eventViewer.cpp" />
-    <ClCompile Include="src\extended\findUnsigned.cpp" />
     <ClCompile Include="src\extended\osCheck.cpp" />
     <ClCompile Include="src\extended\regsitry.cpp" />
     <ClCompile Include="src\extended\runDefender.cpp" />
@@ -197,7 +196,6 @@
     <ClCompile Include="src\extended\userAudit.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\providers\processStartTerminations\ProcStartLog.cpp" />
-    <ClCompile Include="src\providers\process\iamsodone.cpp" />
     <ClCompile Include="src\providers\registryFeatures\RegChecks.cpp" />
     <ClCompile Include="src\providers\stackTracing\stackPwned.cpp" />
     <ClCompile Include="src\reporting\eventLogger.cpp" />

@@ -150,6 +150,9 @@
     <ClInclude Include="src\reporting\sharedHeaders\shutdown.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\providers\stackTracing\stackPwned.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -168,9 +171,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\reporting\eventLogger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\providers\process\iamsodone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\extended\eventViewer.cpp">
@@ -197,10 +197,10 @@
     <ClCompile Include="src\extended\runDefender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\extended\findExt.cpp">
+    <ClCompile Include="src\extended\serviceStatus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\extended\serviceStatus.cpp">
+    <ClCompile Include="src\providers\stackTracing\stackPwned.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
